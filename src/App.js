@@ -1,5 +1,6 @@
 
 import React, {useState, useEffect} from 'react'
+import Home from './pages/Home'
 
 function App() {
 
@@ -18,7 +19,7 @@ function App() {
   
   return (
     <div>
-      
+      <Home />
     </div>
   )
 }
