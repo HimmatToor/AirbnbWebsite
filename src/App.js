@@ -1,9 +1,11 @@
-
 import React, {useState, useEffect} from 'react'
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom"
 import Home from './pages/Home'
+import ProjectReport from './pages/ProjectReport'
+import InputForm from './pages/InputForm'
+import Contributions from './pages/Contributions'
 
 function App() {
-
   const [data, setData] = useState([{}])
 
   useEffect(() => {
@@ -16,10 +18,17 @@ function App() {
       }
     )
   }, [])
-  
+
   return (
     <div>
-      <Home />
+      <Router>
+        <Routes>
+          <Route path = "/" element = {<Home />} />
+          <Route path = "/projectReport" element = {<ProjectReport />} />
+          <Route path = "/inputForm" element = {<InputForm />} />
+          <Route path = "/contributions" element = {<Contributions />} />
+        </Routes>
+      </Router>
     </div>
   )
 }

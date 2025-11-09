@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import {useNavigate} from 'react-router-dom';
 import './Home.css';
 
 function Home() {
   const [scrollY, setScrollY] = useState(0);
+
+  const navigate = useNavigate();
 
   // Track scroll position
   useEffect(() => {
@@ -40,9 +43,9 @@ function Home() {
         <p>Come explore our interactive dashboard & uncover data-driven insights!</p>
 
         <div className="home-buttons">
-          <button className="home-btn">View Project</button>
-          <button className="home-btn">Try Explorer</button>
-          <button className="home-btn">Meet the Team</button>
+          <button onClick={() => {navigate("/projectReport")}} className="home-btn">View Project</button>
+          <button onClick={() => {navigate("/inputForm")}} className="home-btn">Try Explorer</button>
+          <button onClick={() => {navigate("/contributions")}} className="home-btn">Meet the Team</button>
         </div>
       </div>
 
