@@ -80,7 +80,7 @@ function Contributions() {
       </div>
 
       <footer className="footer">
-        © 2025 Team 10 — STA160 Capstone | UC Davis
+        © 2025 Team 10 — STA160 | UC Davis
       </footer>
     </div>
   )

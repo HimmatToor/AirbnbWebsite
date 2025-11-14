@@ -1,0 +1,112 @@
+/* Global container */
+.input-form-container {
+    padding: 30px;
+    max-width: 750px;
+    margin: 0 auto;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    color: #333;
+}
+
+/* Title */
+.input-form-container h2 {
+    margin-bottom: 25px;
+    font-size: 28px;
+    font-weight: 600;
+    color: #FF5A5F;  /* Airbnb red */
+}
+
+/* Navigation buttons */
+.nav-buttons {
+    margin-bottom: 20px;
+}
+
+.nav-buttons button {
+    margin-right: 10px;
+    padding: 7px 16px;
+    border: 1px solid #FF5A5F;
+    background-color: white;
+    color: #FF5A5F;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.25s ease;
+}
+
+.nav-buttons button:hover {
+    background-color: #FF5A5F;
+    color: white;
+}
+
+/* CARD STYLING (main form card) */
+.form-card {
+    background: white;
+    padding: 25px 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    border: 1px solid #f1f1f1;
+}
+
+/* Form layout */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* Labels */
+form label {
+    font-weight: 600;
+    margin-top: 5px;
+    color: #555;
+}
+
+/* Inputs */
+form input,
+form select {
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fafafa;
+    transition: all 0.2s ease;
+}
+
+form input:focus,
+form select:focus {
+    outline: none;
+    border: 1px solid #FF5A5F;
+    background: white;
+    box-shadow: 0 0 4px rgba(255,90,95,0.35);
+}
+
+/* Submit Button */
+form button[type="submit"] {
+    margin-top: 18px;
+    padding: 12px;
+    font-size: 17px;
+    background-color: #FF5A5F;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.1s ease;
+    font-weight: 600;
+}
+
+form button[type="submit"]:hover {
+    background-color: #e0474b;
+}
+
+form button[type="submit"]:active {
+    transform: scale(0.97);
+}
+
+.footer {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #f0f0f0;
+  z-index: 1;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
