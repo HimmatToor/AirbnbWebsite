@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import ProjectReport from './pages/ProjectReport'
 import InputForm from './pages/InputForm'
 import Contributions from './pages/Contributions'
+import Cities from './pages/Cities'
 
 function App() {
   const [data, setData] = useState([{}])
@@ -25,6 +26,7 @@ function App() {
         <Routes>
           <Route path = "/" element = {<Home />} />
           <Route path = "/projectReport" element = {<ProjectReport />} />
+          <Route path="/cities" element={<Cities />} />
           <Route path = "/inputForm" element = {<InputForm />} />
           <Route path = "/contributions" element = {<Contributions />} />
         </Routes>

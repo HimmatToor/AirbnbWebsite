@@ -8,6 +8,7 @@ function ProjectReport() {
         <div className="flex flex-row justify-center items-center p-20px">
             Project Report
             <button onClick={() => {navigate("/")}}>Home</button>
+            <button onClick={() => navigate('/cities')}>Explore Cities</button>
             <button onClick={() => {navigate("/inputForm")}}>Input Form</button>
             <button onClick={() => {navigate("/contributions")}}>Contributions</button>
         </div>

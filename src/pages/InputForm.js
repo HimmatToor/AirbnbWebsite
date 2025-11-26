@@ -57,6 +57,7 @@ function InputForm() {
                 <div className="nav-buttons">
                     <button onClick={() => navigate("/")}>Home</button>
                     <button onClick={() => navigate("/projectReport")}>Project Report</button>
+                    <button onClick={() => navigate('/cities')}>Explore Cities</button>
                     <button onClick={() => navigate("/contributions")}>Contributions</button>
                 </div>
 
