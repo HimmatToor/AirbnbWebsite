@@ -5,6 +5,7 @@ import ProjectReport from './pages/ProjectReport'
 import InputForm from './pages/InputForm'
 import Contributions from './pages/Contributions'
 import Cities from './pages/Cities'
+import NY from "./pages/cities/NY"
 
 function App() {
   const [data, setData] = useState([{}])
@@ -29,6 +30,7 @@ function App() {
           <Route path="/cities" element={<Cities />} />
           <Route path = "/inputForm" element = {<InputForm />} />
           <Route path = "/contributions" element = {<Contributions />} />
+          <Route path="/city/ny" element={<NY />} />
         </Routes>
       </Router>
     </div>

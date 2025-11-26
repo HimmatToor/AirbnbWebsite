@@ -21,7 +21,7 @@ function Cities() {
             {/* CITY CARD GRID */}
             <div className="city-grid">
 
-                <div className="city-card" onClick={() => navigate("/city/nyc")}>
+                <div className="city-card" onClick={() => navigate("/city/ny")}>
                     <img src="/assets/NY.png" alt="New York City" className="city-img" />
                     <h3>New York City</h3>
                 </div>

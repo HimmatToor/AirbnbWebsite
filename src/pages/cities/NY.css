@@ -1,0 +1,61 @@
+.ny-container {
+  min-height: 100vh;
+  background-color: #fafafa;
+  font-family: 'Inter', sans-serif;
+  padding-bottom: 40px;
+}
+
+/* Back button bar */
+.ny-topbar {
+  padding: 20px;
+}
+
+.back-button {
+  background-color: #ff6b6b;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.back-button:hover {
+  background-color: #ff4f4f;
+}
+
+/* Titles */
+.ny-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 800;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  color: #ff6b6b;
+}
+
+.ny-subtitle {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 400;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+/* Map wrapper */
+.ny-map-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.ny-map {
+  width: 90%;
+  height: 600px;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  overflow: hidden;
+}
