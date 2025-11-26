@@ -1,0 +1,233 @@
+import React, { useEffect, useState, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import Papa from 'papaparse'
+import MarkerClusterGroup from 'react-leaflet-cluster'
+import L from 'leaflet'
+import 'leaflet/dist/leaflet.css'
+import './LA.css'
+
+// Fix Leaflet default icon paths
+delete L.Icon.Default.prototype._getIconUrl
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+  iconUrl: require('leaflet/dist/images/marker-icon.png'),
+  shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
+})
+
+function LA() {
+  const navigate = useNavigate()
+  const mapRef = useRef(null)
+
+  const [listings, setListings] = useState([])
+
+  // Los Angeles center
+  const centerLA = [34.0522, -118.2437]
+
+  // Load CSV
+  useEffect(() => {
+    Papa.parse('/data/LA.csv', {
+      download: true,
+      header: true,
+      dynamicTyping: true,
+      complete: ({ data }) => {
+        const valid = data.filter(
+          (row) =>
+            row.latitude &&
+            row.longitude &&
+            !isNaN(row.latitude) &&
+            !isNaN(row.longitude)
+        )
+        setListings(valid)
+      }
+    })
+  }, [])
+
+  // Filter states
+  const [roomType, setRoomType] = useState("All")
+  const [minGuests, setMinGuests] = useState(1)
+  const [minPrice, setMinPrice] = useState(0)
+  const [maxPrice, setMaxPrice] = useState(1000)
+  const [selectedNeighborhood, setSelectedNeighborhood] = useState("All")
+
+  // Neighborhoods
+  const neighborhoods = [
+    "All",
+    ...new Set(
+      listings
+        .map(l => l.neighbourhood?.trim())
+        .filter(Boolean)
+    )
+  ]
+
+  // Filter listings
+  const filteredListings = listings.filter(l => {
+    const matchRoom = roomType === "All" || l.room_type === roomType
+    const matchGuests = l.accommodates >= minGuests
+    const matchPrice = l.price >= minPrice && l.price <= maxPrice
+    const matchNeighborhood =
+      selectedNeighborhood === "All" ||
+      l.neighbourhood?.trim() === selectedNeighborhood
+
+    return matchRoom && matchGuests && matchPrice && matchNeighborhood
+  })
+
+  // Compute neighborhood center
+  const getNeighborhoodCenter = () => {
+    if (selectedNeighborhood === "All") return centerLA
+
+    const subset = listings.filter(
+      l => l.neighbourhood?.trim() === selectedNeighborhood
+    )
+
+    if (subset.length === 0) return centerLA
+
+    const avgLat = subset.reduce((sum, l) => sum + l.latitude, 0) / subset.length
+    const avgLng = subset.reduce((sum, l) => sum + l.longitude, 0) / subset.length
+
+    return [avgLat, avgLng]
+  }
+
+  // Fly to neighborhood
+  useEffect(() => {
+    if (!mapRef.current) return
+
+    const map = mapRef.current
+    const target = getNeighborhoodCenter()
+
+    map.flyTo(
+      target,
+      selectedNeighborhood === "All" ? 11 : 14,
+      { duration: 1.4 }
+    )
+
+  }, [selectedNeighborhood])
+
+  return (
+    <div className="la-container">
+
+      {/* BACK BUTTON */}
+      <div className="la-topbar">
+        <button className="back-button" onClick={() => navigate('/cities')}>
+          ← Back
+        </button>
+      </div>
+
+      <h1 className="la-title">Los Angeles</h1>
+      <p className="la-subtitle">
+        Try the filter & apply your preferences! <br />
+        Zoom in to see more listings. <br />
+        Tap on markers to view details.
+      </p>
+
+      {/* FILTER CARD */}
+      <div className="la-filter-card">
+        <div className="la-filter-grid">
+
+          {/* Room Type */}
+          <div className="filter-item">
+            <label>Room Type</label>
+            <select value={roomType} onChange={(e) => setRoomType(e.target.value)}>
+              <option value="All">All</option>
+              <option value="Entire home/apt">Entire home/apt</option>
+              <option value="Private room">Private room</option>
+              <option value="Shared room">Shared room</option>
+              <option value="Hotel room">Hotel room</option>
+            </select>
+          </div>
+
+          {/* Guests */}
+          <div className="filter-item">
+            <label>Min Guests</label>
+            <input
+              type="number"
+              min="1"
+              value={minGuests}
+              onChange={(e) => setMinGuests(Number(e.target.value))}
+            />
+          </div>
+
+          {/* Price Range */}
+          <div className="filter-item">
+            <label>Price Range ($)</label>
+            <div className="price-row">
+              <input
+                type="number"
+                min="0"
+                value={minPrice}
+                onChange={(e) => setMinPrice(Number(e.target.value))}
+              />
+              <span>–</span>
+              <input
+                type="number"
+                min="0"
+                value={maxPrice}
+                onChange={(e) => setMaxPrice(Number(e.target.value))}
+              />
+            </div>
+          </div>
+
+          {/* Neighborhood */}
+          <div className="filter-item">
+            <label>Neighborhood</label>
+            <select
+              value={selectedNeighborhood}
+              onChange={(e) => setSelectedNeighborhood(e.target.value)}
+            >
+              {neighborhoods.map((n, i) => (
+                <option key={i} value={n}>{n}</option>
+              ))}
+            </select>
+          </div>
+
+        </div>
+      </div>
+
+      {/* MAP */}
+      <div className="la-map-wrapper">
+        <MapContainer
+          center={centerLA}
+          zoom={11}
+          scrollWheelZoom
+          className="la-map"
+          ref={mapRef}
+        >
+          <TileLayer
+            attribution='&copy; OpenStreetMap contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+
+          <MarkerClusterGroup
+            chunkedLoading
+            maxClusterRadius={(zoom) =>
+              zoom <= 12 ? 30 : zoom <= 13 ? 20 : 10
+            }
+            disableClusteringAtZoom={14}
+          >
+            {filteredListings.map((listing, idx) => (
+              <Marker
+                key={idx}
+                position={[listing.latitude, listing.longitude]}
+              >
+                <Popup>
+                  <div style={{ fontSize: "14px" }}>
+                    <strong>{listing.name || "Listing"}</strong><br />
+                    {listing.neighbourhood}<br />
+                    <span style={{ color: "#ff6b6b" }}>
+                      ${listing.price} / night
+                    </span><br />
+                    <i>{listing.room_type}</i>
+                  </div>
+                </Popup>
+              </Marker>
+            ))}
+          </MarkerClusterGroup>
+
+        </MapContainer>
+      </div>
+
+    </div>
+  )
+}
+
+export default LA

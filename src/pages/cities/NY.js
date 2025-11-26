@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import Papa from 'papaparse'
@@ -7,7 +7,7 @@ import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import './NY.css'
 
-// Fix Leaflet default icon paths
+// Fix Leaflet icons
 delete L.Icon.Default.prototype._getIconUrl
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
@@ -17,9 +17,11 @@ L.Icon.Default.mergeOptions({
 
 function NY() {
   const navigate = useNavigate()
+  const mapRef = useRef(null)
+
   const [listings, setListings] = useState([])
 
-  const centerNY = [40.7128, -74.006] // Manhattan center
+  const centerNY = [40.7128, -74.006]
 
   // Load CSV
   useEffect(() => {
@@ -27,64 +29,86 @@ function NY() {
       download: true,
       header: true,
       dynamicTyping: true,
-      complete: (results) => {
-        const rows = results.data
-
-        const valid = rows.filter(
-          (row) =>
-            row.latitude &&
-            row.longitude &&
-            !isNaN(row.latitude) &&
-            !isNaN(row.longitude)
+      complete: ({ data }) => {
+        const valid = data.filter(row =>
+          row.latitude &&
+          row.longitude &&
+          !isNaN(row.latitude) &&
+          !isNaN(row.longitude)
         )
-
         setListings(valid)
       }
     })
   }, [])
 
-  // Filter states
+  // -----------------------
+  // FILTER STATES
+  // -----------------------
   const [roomType, setRoomType] = useState("All")
   const [minGuests, setMinGuests] = useState(1)
-
-  // Price filters
   const [minPrice, setMinPrice] = useState(0)
   const [maxPrice, setMaxPrice] = useState(1000)
-
-  // Neighborhood filter
   const [selectedNeighborhood, setSelectedNeighborhood] = useState("All")
 
-  // Extract unique neighborhoods AFTER data loads
-  const neighborhoods = ["All", ...new Set(listings.map(l => l.neighbourhood))]
+  // Neighborhood list (cleaned)
+  const neighborhoods = [
+    "All",
+    ...new Set(
+      listings
+        .map(l => l.neighbourhood?.trim())
+        .filter(Boolean)
+    )
+  ]
 
-  // Filter listings
-  const filteredListings = listings.filter(listing => {
-  
-    // Room type
-    const matchRoom =
-      roomType === "All" || listing.room_type === roomType
-
-    // Guest count
-    const matchGuests =
-      listing.accommodates >= minGuests
-
-    // Price
-    const matchPrice =
-      listing.price >= minPrice &&
-      listing.price <= maxPrice
-
-    // Neighborhood
+  // Filtered listings
+  const filteredListings = listings.filter(l => {
+    const matchRoom = roomType === "All" || l.room_type === roomType
+    const matchGuests = l.accommodates >= minGuests
+    const matchPrice = l.price >= minPrice && l.price <= maxPrice
     const matchNeighborhood =
       selectedNeighborhood === "All" ||
-      listing.neighbourhood === selectedNeighborhood
+      l.neighbourhood?.trim() === selectedNeighborhood
 
     return matchRoom && matchGuests && matchPrice && matchNeighborhood
   })
 
+  // Compute center of selected neighborhood
+  const getNeighborhoodCenter = () => {
+    if (selectedNeighborhood === "All") return centerNY
+
+    const subset = listings.filter(
+      l => l.neighbourhood?.trim() === selectedNeighborhood
+    )
+
+    if (subset.length === 0) return centerNY
+
+    const avgLat = subset.reduce((sum, l) => sum + l.latitude, 0) / subset.length
+    const avgLng = subset.reduce((sum, l) => sum + l.longitude, 0) / subset.length
+
+    return [avgLat, avgLng]
+  }
+
+  // Recenter map on neighborhood change
+  useEffect(() => {
+    if (!mapRef.current) return
+
+    const map = mapRef.current
+    const target = getNeighborhoodCenter()
+
+    if (!target) return
+
+    map.flyTo(
+      target,
+      selectedNeighborhood === "All" ? 11 : 14,
+      { duration: 1.4 }
+    )
+
+  }, [selectedNeighborhood])
+
   return (
     <div className="ny-container">
-
-      {/* BACK */}
+      
+      {/* Back button */}
       <div className="ny-topbar">
         <button className="back-button" onClick={() => navigate('/cities')}>
           ← Back
@@ -92,17 +116,16 @@ function NY() {
       </div>
 
       <h1 className="ny-title">New York</h1>
-      <p className="ny-subtitle">Try the filter & apply your preferences!<br />
-      Zoom in to see more listings.<br />
-      Tap on markers to view details.
+      <p className="ny-subtitle">
+        Try the filter & apply your preferences! <br />
+        Zoom in to see more listings. <br />
+        Tap on markers to view details.
       </p>
 
-      {/* FILTER CARD */}
+      {/* Filter box */}
       <div className="ny-filter-card">
-
         <div className="ny-filter-grid">
 
-          {/* Room Type */}
           <div className="filter-item">
             <label>Room Type</label>
             <select value={roomType} onChange={(e) => setRoomType(e.target.value)}>
@@ -114,7 +137,6 @@ function NY() {
             </select>
           </div>
 
-          {/* Guests */}
           <div className="filter-item">
             <label>Min Guests</label>
             <input
@@ -125,7 +147,6 @@ function NY() {
             />
           </div>
 
-          {/* Price Range */}
           <div className="filter-item">
             <label>Price Range ($)</label>
             <div className="price-row">
@@ -145,7 +166,6 @@ function NY() {
             </div>
           </div>
 
-          {/* Neighborhood */}
           <div className="filter-item">
             <label>Neighborhood</label>
             <select
@@ -161,36 +181,39 @@ function NY() {
         </div>
       </div>
 
+      {/* Map */}
       <div className="ny-map-wrapper">
         <MapContainer
           center={centerNY}
-          zoom={15}
+          zoom={11}
           scrollWheelZoom
           className="ny-map"
+          ref={mapRef}
         >
           <TileLayer
             attribution='&copy; OpenStreetMap contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
 
-          {/*  Cluster group with default markers  */}
-          <MarkerClusterGroup 
+          <MarkerClusterGroup
             chunkedLoading
-            maxClusterRadius={(zoom) => (zoom <= 12 ? 50 : zoom <= 13 ? 35 : 20)}
+            maxClusterRadius={(zoom) =>
+              zoom <= 12 ? 30 : zoom <= 13 ? 20 : 10
+            }
+            disableClusteringAtZoom={14}
           >
             {filteredListings.map((listing, idx) => (
               <Marker
                 key={idx}
                 position={[listing.latitude, listing.longitude]}
               >
-                {/*  Popup on click  */}
                 <Popup>
                   <div style={{ fontSize: "14px" }}>
                     <strong>{listing.name || "Listing"}</strong><br />
                     {listing.neighbourhood}<br />
                     <span style={{ color: "#ff6b6b" }}>
                       ${listing.price} / night
-                    </span><br/>
+                    </span><br />
                     <i>{listing.room_type}</i>
                   </div>
                 </Popup>
@@ -200,6 +223,7 @@ function NY() {
 
         </MapContainer>
       </div>
+
     </div>
   )
 }

@@ -8,7 +8,7 @@ function Cities() {
     return (
         <div className="cities-container">
             <h1 className="cities-title">Explore Cities</h1>
-            <p className="cities-subtitle">Click a city to view Airbnb listings</p>
+            <p className="cities-subtitle">Select your destination city to view Airbnb listings!</p>
 
             {/* NAVIGATION BAR */}
             <div className="navbar">

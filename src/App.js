@@ -6,6 +6,11 @@ import InputForm from './pages/InputForm'
 import Contributions from './pages/Contributions'
 import Cities from './pages/Cities'
 import NY from "./pages/cities/NY"
+import DAL from "./pages/cities/DAL"
+import DEN from "./pages/cities/DEN"
+import CHI from "./pages/cities/CHI"
+import LA from "./pages/cities/LA"
+
 
 function App() {
   const [data, setData] = useState([{}])
@@ -31,6 +36,10 @@ function App() {
           <Route path = "/inputForm" element = {<InputForm />} />
           <Route path = "/contributions" element = {<Contributions />} />
           <Route path="/city/ny" element={<NY />} />
+          <Route path="/city/dallas" element={<DAL />} />
+          <Route path="/city/denver" element={<DEN />} />
+          <Route path="/city/chicago" element={<CHI />} />
+          <Route path="/city/la" element={<LA />} />
         </Routes>
       </Router>
     </div>
