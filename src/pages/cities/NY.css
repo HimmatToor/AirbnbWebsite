@@ -1,3 +1,4 @@
+/* MAIN CONTAINER */
 .ny-container {
   min-height: 100vh;
   background-color: #fafafa;
@@ -5,7 +6,7 @@
   padding-bottom: 40px;
 }
 
-/* Back button bar */
+/* BACK BUTTON */
 .ny-topbar {
   padding: 20px;
 }
@@ -26,13 +27,13 @@
   background-color: #ff4f4f;
 }
 
-/* Titles */
+/* PAGE TITLES */
 .ny-title {
   text-align: center;
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 800;
   margin-top: 5px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   color: #ff6b6b;
 }
 
@@ -41,15 +42,84 @@
   font-size: 16px;
   font-weight: 400;
   color: #555;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  line-height: 1.4;
 }
 
-/* Map wrapper */
+/* FILTER CARD */
+.ny-filter-card {
+  background: #ffffff;
+  width: 90%;
+  max-width: 1300px;
+  margin: 25px auto;
+  padding: 25px 30px;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+/* FILTER GRID */
+.ny-filter-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 35px;
+}
+
+/* EACH FILTER BLOCK */
+.filter-item {
+  display: flex;
+  flex-direction: column;
+  font-size: 15px;
+}
+
+.filter-item label {
+  font-weight: 700;
+  color: #444;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+/* INPUT + SELECT STYLING */
+.filter-item select,
+.filter-item input {
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid #d0d0d0;
+  background: #fafafa;
+  font-size: 15px;
+  transition: 0.2s;
+}
+
+.filter-item select:hover,
+.filter-item input:hover {
+  border-color: #ff6b6b;
+}
+
+.filter-item select:focus,
+.filter-item input:focus {
+  outline: none;
+  border-color: #ff6b6b;
+  box-shadow: 0 0 0 3px rgba(255,107,107,0.3);
+}
+
+/* PRICE RANGE ROW */
+.price-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.price-row span {
+  font-weight: 600;
+  font-size: 18px;
+  color: #333;
+}
+
+/* MAP WRAPPER */
 .ny-map-wrapper {
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 .ny-map {
@@ -58,4 +128,17 @@
   border-radius: 16px;
   box-shadow: 0 6px 18px rgba(0,0,0,0.12);
   overflow: hidden;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .ny-filter-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 500px) {
+  .ny-filter-grid {
+    grid-template-columns: 1fr;
+  }
 }
