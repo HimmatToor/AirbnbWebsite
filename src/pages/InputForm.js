@@ -6,18 +6,20 @@ function InputForm() {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
-        accommodates: "",
-        bedrooms: "",
+        city: "",
+        amenities: "",
+        minimum_nights: "",
+        number_of_reviews: "",
+        calculated_host_listings_count: "",
+        availability_365: "",
         beds: "",
+        bedrooms: "",
+        accommodates: "",
+        review_scores_rating: "",
         room_type: "",
         host_is_superhost: "",
-        minimum_nights: "",
-        availability_365: "",
-        number_of_reviews: "",
-        review_scores_rating: "",
-        review_scores_checkin: "",
-        review_scores_accuracy: "",
-        zip: ""
+        zip: "",
+        season: ""
     });
 
     const handleChange = (e) => {
@@ -64,15 +66,43 @@ function InputForm() {
                 {/* Form card */}
                 <div className="form-card">
                     <form onSubmit={handleSubmit}>
-                        <label>Accommodates:</label>
-                        <input type="number" name="accommodates" value={formData.accommodates} onChange={handleChange} required />
+                        <label>City:</label>
+                        <select name="city" value={formData.city} onChange={handleChange} required>
+                            <option value="">Select</option>
+                            <option value="CHI">Chicago</option>
+                            <option value="DAL">Dallas</option>
+                            <option value="DEN">Denver</option>
+                            <option value="LA">Los Angeles</option>
+                            <option value="NY">New York</option>
+                        </select>
+
+                        <label>Amenities:</label>
+                        <input type="text" name="amenities" value={formData.amenities} onChange={handleChange} required />
+
+                        <label>Minimum Nights:</label>
+                        <input type="number" name="minimum_nights" value={formData.minimum_nights} onChange={handleChange} required />
+
+                        <label>Number of Reviews:</label>
+                        <input type="number" name="number_of_reviews" value={formData.number_of_reviews} onChange={handleChange} required />
+
+                        <label>Calculated Host Listings Count:</label>
+                        <input type="number" name="calculated_host_listings_count" value={formData.calculated_host_listings_count} onChange={handleChange} required />
+
+                        <label>Availability (365 days):</label>
+                        <input type="number" name="availability_365" value={formData.availability_365} onChange={handleChange} required />
+                        
+                        <label>Beds:</label>
+                        <input type="number" name="beds" value={formData.beds} onChange={handleChange} required />
 
                         <label>Bedrooms:</label>
                         <input type="number" name="bedrooms" value={formData.bedrooms} onChange={handleChange} required />
 
-                        <label>Beds:</label>
-                        <input type="number" name="beds" value={formData.beds} onChange={handleChange} required />
+                        <label>Accommodates:</label>
+                        <input type="number" name="accommodates" value={formData.accommodates} onChange={handleChange} required />
 
+                        <label>Review Score: Rating</label>
+                        <input type="number" name="review_scores_rating" value={formData.review_scores_rating} onChange={handleChange} />
+                        
                         <label>Room Type:</label>
                         <select name="room_type" value={formData.room_type} onChange={handleChange} required>
                             <option value="">Select</option>
@@ -89,26 +119,17 @@ function InputForm() {
                             <option value="0">No</option>
                         </select>
 
-                        <label>Minimum Nights:</label>
-                        <input type="number" name="minimum_nights" value={formData.minimum_nights} onChange={handleChange} required />
-
-                        <label>Availability (365 days):</label>
-                        <input type="number" name="availability_365" value={formData.availability_365} onChange={handleChange} required />
-
-                        <label>Number of Reviews:</label>
-                        <input type="number" name="number_of_reviews" value={formData.number_of_reviews} onChange={handleChange} required />
-
-                        <label>Review Score: Rating</label>
-                        <input type="number" name="review_scores_rating" value={formData.review_scores_rating} onChange={handleChange} />
-
-                        <label>Review Score: Check-in</label>
-                        <input type="number" name="review_scores_checkin" value={formData.review_scores_checkin} onChange={handleChange} />
-
-                        <label>Review Score: Accuracy</label>
-                        <input type="number" name="review_scores_accuracy" value={formData.review_scores_accuracy} onChange={handleChange} />
-
                         <label>ZIP Code:</label>
                         <input type="text" name="zip" value={formData.zip} onChange={handleChange} required />
+
+                        <label>Season:</label>
+                        <select name="season" value={formData.season} onChange={handleChange} required>
+                            <option value="">Select</option>
+                            <option value="Spring">Spring</option>
+                            <option value="Summer">Summer</option>
+                            <option value="Autumn">Autumn</option>
+                            <option value="Winter">Winter</option>
+                        </select>
 
                         <button type="submit">Predict Price</button>
                     </form>
