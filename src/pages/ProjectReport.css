@@ -82,3 +82,56 @@ section p {
     line-height: 1.6;
 }
 
+/* Base styling */
+.overview-figure {
+    text-align: center;
+    margin: 25px auto;
+}
+
+.overview-figure img {
+    height: auto;
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto;
+    box-shadow: 0 0 8px rgba(0,0,0,0.08);
+}
+
+/* SMALL FIGURES (Figures 1–8) */
+.figure-small img {
+    width: 45%;          /* main size */
+    max-width: 420px;    /* hard cap */
+}
+
+/* LARGE FIGURES (Figures 9–11) */
+.figure-large img {
+    width: 88%;          /* larger */
+    max-width: 1200px;    /* allow wide diagnostic plots */
+}
+
+.figure-caption {
+    font-size: 14px;
+    margin-top: 8px;
+    color: #666;
+}
+
+/* FIGURE ROW FLEX CONTAINER */
+.figure-row {
+    display: flex;
+    justify-content: center;
+    gap: 30px;        /* spacing between figures */
+    margin: 25px auto;
+    flex-wrap: wrap;  /* allows wrapping on smaller screens */
+}
+
+/* INDIVIDUAL FIGURES IN ROW */
+.figure-row .overview-figure {
+    flex: 1 1 45%;    /* responsive two-column layout */
+    max-width: 45%;
+}
+
+/* SMALL FIGURES RESIZE */
+.figure-small img {
+    width: 100%;
+    max-width: 420px;
+}
+

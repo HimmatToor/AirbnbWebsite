@@ -8,7 +8,7 @@ function ProjectReport() {
     return (
         <div className="report-page">
 
-            {/* TOP NAV BUTTONS */}
+            {/* NAVIGATION */}
             <div className="top-nav">
                 <button className="nav-btn" onClick={() => navigate("/")}>Home</button>
                 <button className="nav-btn" onClick={() => navigate("/cities")}>Explore Cities</button>
@@ -16,130 +16,208 @@ function ProjectReport() {
                 <button className="nav-btn" onClick={() => navigate("/contributions")}>Contributions</button>
             </div>
 
-            <h1 className="report-title">Airbnb Price Explorer — Project Overview</h1>
-            <h3 className="report-authors">Team 10 · STA160 Fall 2025</h3>
+            {/* ===== OVERVIEW BOX ===== */}
+            <section className="overview-box">
+                <h1 className="report-title">Airbnb Price Explorer</h1>
+                <h3 className="report-subtitle">Modeling Travel Affordability Across Major U.S. Cities</h3>
 
-            {/* SECTION 1 */}
+                <p className="overview-text">
+                    This project investigates what drives Airbnb listing prices across Chicago, Dallas,
+                    Denver, Los Angeles, and New York using Inside Airbnb data. We built a unified
+                    cleaning pipeline, explored spatial and seasonal variation, and developed three models:
+                    a Linear Mixed-Effects Model (LMM), XGBoost, and an LSTM Sequential Regression Model.
+                </p>
+
+                <p className="overview-text">
+                    XGBoost achieved the strongest predictive accuracy, LMM captured strong neighborhood
+                    effects, and LSTM learned nonlinear interactions and limited seasonal patterns. These
+                    models power our interactive web tool that predicts Airbnb prices based on user inputs.
+                </p>
+
+                <div className="figure-row">
+                    <div className="overview-figure figure-small">
+                        <img src="/assets/dallas_hist.png" alt="Dallas Price Distribution" />
+                        <p className="figure-caption">Figure 1. Histogram of Dallas price distribution.</p>
+                    </div>
+
+                    <div className="overview-figure figure-small">
+                        <img src="/assets/la_hist.png" alt="LA Histogram" />
+                        <p className="figure-caption">Figure 2. Histogram of Los Angeles price distribution.</p>
+                    </div>
+                </div>
+            </section>
+
+            {/* ===== ABSTRACT ===== */}
             <section>
                 <h2>Abstract</h2>
                 <p>
-                    This project investigates the determinants of Airbnb pricing across Chicago, Dallas,
-                    Denver, Los Angeles, and New York using Inside Airbnb data. After constructing a
-                    unified cross-city cleaning pipeline, we analyze seasonal snapshots and build multiple
-                    predictive models including linear regression, linear mixed-effects (LMM), XGBoost,
-                    and an LSTM-based sequential regression model.
-                </p>
-                <p>
-                    XGBoost achieves the highest predictive accuracy, the LMM shows strong spatial effects,
-                    and the LSTM extracts limited sequential patterns across months. We deploy the final
-                    modeling pipeline through an interactive web application.
+                    This project investigates the determinants of Airbnb pricing across Chicago,
+                    Dallas, Denver, Los Angeles, and New York. Using Inside Airbnb data, we built
+                    a cross-city cleaning pipeline and applied LMM, XGBoost, and LSTM models.
+                    XGBoost delivered the highest predictive accuracy, while LMM revealed strong
+                    neighborhood-level variation and LSTM captured nonlinear interactions and
+                    limited sequential patterns.
                 </p>
             </section>
 
-            {/* SECTION 2 */}
+            {/* ===== INTRODUCTION ===== */}
             <section>
                 <h2>Introduction & Motivation</h2>
                 <p>
-                    Airbnb pricing varies widely across cities and property types, making it difficult for hosts
-                    and travelers to evaluate fair listing prices. Our project addresses three main questions:
+                    Airbnb pricing varies widely due to location, property features, amenities,
+                    host behavior, and seasonal fluctuations. Our project addresses three main
+                    questions:
                 </p>
                 <ul>
                     <li>Which listing characteristics most strongly influence price?</li>
-                    <li>How much variation is explained by neighborhood (zip code)?</li>
-                    <li>Do nonlinear or sequential models improve predictive accuracy?</li>
+                    <li>How much variation is due to neighborhood differences?</li>
+                    <li>Do nonlinear or sequential models outperform linear baselines?</li>
                 </ul>
+
+                <div className="figure-row">
+                    <div className="overview-figure figure-small">
+                        <img src="/assets/ny_roomtype_boxplot.png" alt="NY Room Type Boxplot" />
+                        <p className="figure-caption">Figure 3. Boxplot of New York prices by room type.</p>
+                    </div>
+
+                    <div className="overview-figure figure-small">
+                        <img src="/assets/ny_roomtype_violin.png" alt="NY Room Type Violin Plot" />
+                        <p className="figure-caption">Figure 4. Violin–boxplot of New York prices by room type.</p>
+                    </div>
+                </div>
             </section>
 
-            {/* SECTION 3 */}
+            {/* ===== DATA & METHODS ===== */}
             <section>
                 <h2>Data & Methods</h2>
 
                 <h3>Data</h3>
                 <p>
-                    We use Inside Airbnb listing data for March, June, and December — the only months
-                    available across all five cities. Important features include price, room type, capacity,
-                    bedrooms, bathrooms, amenities, zip code, and host attributes.
+                    We use March, June, and December listing data for all five cities. Key features include
+                    price, room type, accommodates, beds, bedrooms, bathrooms, host superhost status,
+                    amenities, latitude/longitude, and zip code.
                 </p>
 
                 <h4>Data Cleaning</h4>
                 <p>
-                    A unified pipeline ensured consistent formatting across cities. We removed invalid
-                    prices, standardized bathroom counts, log-transformed price, and dropped missing
-                    review-related features.
+                    We removed invalid prices, standardized bathroom counts, applied log(price) transformation,
+                    and excluded features with excessive missing values. Outliers above $1000 were removed.
                 </p>
 
+
+                 <div className="overview-figure figure-small">
+                     <img src="/assets/chicago_corr_heatmap.png" alt="Chicago Correlation Heatmap" />
+                    <p className="figure-caption">Figure 5. Correlation heatmap of Airbnb features in Chicago.</p>
+                 </div>
+
+                <div className="figure-row">
+                    <div className="overview-figure figure-small">
+                        <img src="/assets/chicago_price_vs_rating.png" alt="Price vs Rating" />
+                        <p className="figure-caption">Figure 6. Scatterplot of Chicago price vs. review score rating.</p>
+                    </div>
+
+                    <div className="overview-figure figure-small">
+                        <img src="/assets/chicago_price_vs_availability.png" alt="Price vs Availability" />
+                        <p className="figure-caption">Figure 7. Scatterplot of Chicago price vs. availability.</p>
+                    </div>
+                </div>
+
+                    <div className="overview-figure figure-small">
+                        <img src="/assets/la_spatial_map.png" alt="LA Spatial Price Map" />
+                        <p className="figure-caption">Figure 8. Latitude–longitude price map of Los Angeles.</p>
+                    </div>
+
                 <h3>Modeling Methods</h3>
+
                 <h4>Linear Mixed-Effects Model (LMM)</h4>
                 <p>
-                    Fixed effects: room type, accommodates, bedrooms, bathrooms, review rating,
-                    superhost.  
-                    Random effects: zip-code intercepts to capture neighborhood pricing.
+                    Fixed effects include room type, accommodates, bedrooms, bathrooms,
+                    review rating, and superhost status. Random intercepts by zip code capture
+                    neighborhood-level pricing differences.
                 </p>
+
+                <div className="overview-figure figure-large">
+                    <img src="/assets/lmm_qqplots.png" alt="LMM QQ Plots" />
+                    <p className="figure-caption">
+                        Figure 9. QQ plots of standardized residuals for the LMM across cities.
+                    </p>
+                </div>
+
+                <div className="overview-figure figure-large">
+                    <img src="/assets/lmm_residuals.png" alt="LMM Residuals vs Fitted" />
+                    <p className="figure-caption">
+                        Figure 10. Residuals vs. fitted values for the LMM across cities.
+                    </p>
+                </div>
 
                 <h4>XGBoost</h4>
                 <p>
-                    Captures nonlinear interactions using dummy-encoded features and cross-validated
-                    boosting rounds.
+                    We train city-specific XGBoost models with dummy-encoded features and optimized
+                    hyperparameters via cross-validation.
                 </p>
 
                 <h4>LSTM Sequential Regression</h4>
                 <p>
-                    Uses three snapshot months as a short time series with embedding layers for
-                    high-cardinality categorical features.
+                    LSTM models use embeddings for high-cardinality features and capture limited
+                    seasonal patterns across three monthly snapshots.
                 </p>
             </section>
 
-            {/* SECTION 4 */}
+            {/* ===== RESULTS ===== */}
             <section>
                 <h2>Results & Interpretation</h2>
 
                 <h3>Linear Mixed-Effects Model</h3>
                 <p>
-                    Strong spatial effects were observed: cities with sharp price gradients (LA, NYC)
-                    showed large differences between marginal and conditional R². Bedrooms and
-                    accommodates consistently increased price.
+                    LMM reveals strong neighborhood effects. Cities with steep spatial gradients (NYC, LA)
+                    show large gaps between marginal and conditional R².
                 </p>
 
                 <h3>XGBoost</h3>
                 <p>
-                    Delivered the strongest predictive accuracy with RMSE ≈ $83–$92. Capacity-related
-                    variables and room type were the most important predictors.
+                    XGBoost achieves RMSE of $83–$92 across cities and explains 57–70% of price variance.
                 </p>
+
+                <div className="overview-figure figure-large">
+                    <img src="/assets/xgb_pred_vs_actual.png" alt="XGBoost Prediction vs Actual" />
+                    <p className="figure-caption">
+                        Figure 11. Prediction vs. actual prices for XGBoost across cities.
+                    </p>
+                </div>
 
                 <h3>LSTM Model</h3>
                 <p>
-                    Captured modest seasonal patterns; RMSE ranged from $126–$142. Performs better
-                    than linear methods on nonlinear interactions but below XGBoost overall.
+                    LSTM captures nonlinear interactions and moderate temporal variation but underperforms
+                    XGBoost, with RMSE ranging from $126–$142.
                 </p>
 
                 <h3>Model Comparison</h3>
                 <ul>
-                    <li><b>LMM</b>: Highly interpretable; moderate accuracy.</li>
-                    <li><b>XGBoost</b>: Best predictive performance across all cities.</li>
-                    <li><b>LSTM</b>: Captures interactions + limited temporal signal.</li>
+                    <li><b>LMM:</b> Highly interpretable; moderate predictive accuracy.</li>
+                    <li><b>XGBoost:</b> Best overall performance and robustness.</li>
+                    <li><b>LSTM:</b> Captures feature interactions and limited seasonality.</li>
                 </ul>
             </section>
 
-            {/* SECTION 5 */}
+            {/* ===== DISCUSSION ===== */}
             <section>
                 <h2>Discussion & Reflection</h2>
                 <p>
-                    Data inconsistencies across cities and months required dropping non-overlapping
-                    features. A miscommunication between teams led to the wrong dataset being modeled,
-                    reinforcing the importance of coordinated weekly meetings and whole-team updates.
+                    Dataset inconsistencies and communication issues between subteams caused delays,
+                    reinforcing the importance of shared documentation and full-team updates.
                 </p>
                 <p>
-                    Future work includes richer amenity text modeling, more months for real seasonality,
-                    and integrating host behavior or neighborhood socioeconomic data.
+                    Future improvements include transformer-based modeling of amenity text, adding more
+                    months for true seasonality modeling, and incorporating neighborhood socioeconomic data.
                 </p>
             </section>
 
-            {/* SECTION 6 */}
+            {/* ===== REFERENCES ===== */}
             <section>
                 <h2>Acknowledgments & References</h2>
                 <p>
-                    We acknowledge Inside Airbnb for providing data, as well as R, Python, TensorFlow,
-                    React, and Leaflet ecosystems used throughout the project.
+                    Data from Inside Airbnb. Modeling done in R, Python, TensorFlow, and Keras.
+                    Frontend developed with React and Leaflet. Mapping tiles from OpenStreetMap.
                 </p>
             </section>
 
