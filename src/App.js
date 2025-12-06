@@ -10,6 +10,8 @@ import DAL from "./pages/cities/DAL"
 import DEN from "./pages/cities/DEN"
 import CHI from "./pages/cities/CHI"
 import LA from "./pages/cities/LA"
+import XGBoostForm from "./pages/XGBoostForm"
+import LSRTForm from "./pages/LSRTForm"
 
 
 function App() {
@@ -34,6 +36,8 @@ function App() {
           <Route path = "/projectReport" element = {<ProjectReport />} />
           <Route path="/cities" element={<Cities />} />
           <Route path = "/inputForm" element = {<InputForm />} />
+          <Route path ="/xgboostForm" element={<XGBoostForm />} />
+          <Route path ="/lsrtForm" element={<LSRTForm />} />
           <Route path = "/contributions" element = {<Contributions />} />
           <Route path="/city/ny" element={<NY />} />
           <Route path="/city/dallas" element={<DAL />} />

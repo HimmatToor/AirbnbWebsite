@@ -1,112 +1,279 @@
-/* Global container */
+/* MAIN CONTAINER */
 .input-form-container {
-    padding: 30px;
-    max-width: 750px;
-    margin: 0 auto;
-    font-family: "Helvetica Neue", Arial, sans-serif;
-    color: #333;
+    min-height: 100vh;
+    background-color: #fafafa;
+    padding: 40px;
+    font-family: 'Inter', sans-serif;
 }
 
-/* Title */
-.input-form-container h2 {
-    margin-bottom: 25px;
-    font-size: 28px;
-    font-weight: 600;
-    color: #FF5A5F;  /* Airbnb red */
+h2 {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 5px;
+    color: #ff6b6b;
 }
 
-/* Navigation buttons */
+.model-intro {
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 30px;
+    color: #444;
+}
+
+
+/* NAVIGATION BUTTONS */
 .nav-buttons {
-    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 30px;
+    margin-bottom: 40px;
 }
 
 .nav-buttons button {
-    margin-right: 10px;
-    padding: 7px 16px;
-    border: 1px solid #FF5A5F;
-    background-color: white;
-    color: #FF5A5F;
-    cursor: pointer;
+    background-color: #ff6b6b;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 600;
     border-radius: 8px;
-    transition: all 0.25s ease;
+    cursor: pointer;
+    transition: 0.2s;
 }
 
 .nav-buttons button:hover {
-    background-color: #FF5A5F;
-    color: white;
+    background-color: #ff6b6b;
 }
 
-/* CARD STYLING (main form card) */
-.form-card {
-    background: white;
-    padding: 25px 30px;
-    border-radius: 15px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-    border: 1px solid #f1f1f1;
-}
 
-/* Form layout */
-form {
+/* MODEL SELECTION CARDS */
+.model-selection-container {
     display: flex;
-    flex-direction: column;
-    gap: 14px;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 20px;
 }
 
-/* Labels */
-form label {
-    font-weight: 600;
-    margin-top: 5px;
-    color: #555;
+.model-card {
+    width: 350px;
+    background-color: white;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.08);
 }
 
-/* Inputs */
-form input,
-form select {
+.model-card h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color:#444;
+}
+
+.model-card p {
+    font-size: 14px;
+    color: #444;
+    margin-bottom: 18px;
+    line-height: 1.4;
+}
+
+.model-btn {
+    width: 100%;
+    background-color: #ff6b6b;
+    border: none;
+    color: white;
     padding: 10px;
     font-size: 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background: #fafafa;
-    transition: all 0.2s ease;
-}
-
-form input:focus,
-form select:focus {
-    outline: none;
-    border: 1px solid #FF5A5F;
-    background: white;
-    box-shadow: 0 0 4px rgba(255,90,95,0.35);
-}
-
-/* Submit Button */
-form button[type="submit"] {
-    margin-top: 18px;
-    padding: 12px;
-    font-size: 17px;
-    background-color: #FF5A5F;
-    color: white;
-    border: none;
+    font-weight: 700;
     border-radius: 10px;
     cursor: pointer;
-    transition: background 0.25s ease, transform 0.1s ease;
+    transition: 0.2s;
+}
+
+.model-btn:hover {
+    background-color: #ff4f4f;
+}
+
+
+/* FORM CARD (Used in XGBoost and LSRT pages) */
+.form-card {
+    max-width: 550px;
+    background-color: white;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.1);
+}
+
+.form-card h2 {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* FORM ELEMENTS */
+form label {
+    display: block;
     font-weight: 600;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+form input,
+form select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    font-size: 14px;
+    background-color: #fff;
+}
+
+/* SUBMIT BUTTON */
+form button[type="submit"] {
+    width: 100%;
+    background-color: #ff6b6b;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: 0.2s;
 }
 
 form button[type="submit"]:hover {
-    background-color: #e0474b;
+    background-color: #ff6b6b;
 }
 
-form button[type="submit"]:active {
-    transform: scale(0.97);
+
+/* BACK BUTTON (Used in form pages) */
+.back-btn {
+    margin-top: 20px;
+    display: block;
+    width: 100%;
+    background-color: #aaa;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
 }
 
+.back-btn:hover {
+    background-color: #888;
+}
+
+
+/* FOOTER */
 .footer {
-  position: absolute;
-  bottom: 10px;
-  width: 100%;
-  text-align: center;
-  font-size: 0.9rem;
-  color: #f0f0f0;
-  z-index: 1;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin-top: 40px;
+    text-align: center;
+    font-size: 14px;
+    padding: 10px;
+    color: #777;
+}
+
+/* ============================
+   TAG MULTI-SELECT (Select-like)
+   ============================ */
+
+.tag-multi-select {
+    position: relative;
+    width: 100%;
+}
+
+.tag-input-box {
+    width: 100%;
+    min-height: 45px;
+    padding: 10px 40px 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: white;
+    cursor: pointer;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.tag-input-box:focus {
+    outline: none;
+    border-color: #6b7280;
+}
+
+.tag-input-box .placeholder {
+    color: #888;
+}
+
+.tag {
+    background: #e6e8ff;
+    padding: 4px 8px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+}
+
+.remove-tag {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* ARROW ICON */
+.tag-input-box::after {
+    content: "▾";
+    position: absolute;
+    right: 12px;
+    font-size: 14px;
+    color: #555;
+    pointer-events: none;
+}
+
+.tag-multi-select.open .tag-input-box::after {
+    content: "▴";
+}
+
+/* DROPDOWN PANEL */
+.tag-dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    width: 100%;
+    max-height: 220px;
+    overflow-y: auto;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+    z-index: 12;
+}
+
+/* DROPDOWN ITEMS */
+.dropdown-option {
+    padding: 10px 14px;
+    cursor: pointer;
+    text-align: left;
+    font-size: 14px;
+}
+
+.dropdown-option:hover {
+    background: #f0f0f0;
+}
+
+.dropdown-option.selected {
+    background: #e6e8ff;
+    font-weight: 600;
 }

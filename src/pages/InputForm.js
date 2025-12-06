@@ -1,139 +1,51 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./InputForm.css";
 
 function InputForm() {
     const navigate = useNavigate();
 
-    const [formData, setFormData] = useState({
-        city: "",
-        amenities: "",
-        minimum_nights: "",
-        number_of_reviews: "",
-        calculated_host_listings_count: "",
-        availability_365: "",
-        beds: "",
-        bedrooms: "",
-        accommodates: "",
-        review_scores_rating: "",
-        room_type: "",
-        host_is_superhost: "",
-        zip: "",
-        season: ""
-    });
-
-    const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-        });
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        console.log("Submitting:", formData);
-
-        try {
-            const response = await fetch("http://127.0.0.1:5000/predict", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(formData),
-            });
-    
-            const data = await response.json();
-            console.log("Response from backend:", data);
-    
-        } catch (error) {
-            console.error("Error sending data:", error);
-        }
-    };
-
     return (
-        <div>
-            <div className="input-form-container">
-                <h2>Airbnb Price Prediction Form</h2>
+        <div className="input-form-container">
 
-                {/* Navigation */}
-                <div className="nav-buttons">
-                    <button onClick={() => navigate("/")}>Home</button>
-                    <button onClick={() => navigate("/projectReport")}>Project Report</button>
-                    <button onClick={() => navigate('/cities')}>Explore Cities</button>
-                    <button onClick={() => navigate("/contributions")}>Contributions</button>
+            <h2>Select a Prediction Model</h2>
+            <p className="model-intro">
+                Each model uses different input features. Choose the one that matches the
+                information you can provide.
+            </p>
+
+            {/* Navigation */}
+            <div className="nav-buttons">
+                <button onClick={() => navigate("/")}>Home</button>
+                <button onClick={() => navigate("/projectReport")}>Project Report</button>
+                <button onClick={() => navigate('/cities')}>Explore Cities</button>
+                <button onClick={() => navigate("/contributions")}>Contributions</button>
+            </div>
+
+            <div className="model-selection-container">
+
+                {/* XGBoost Card */}
+                <div className="model-card">
+                    <h3>XGBoost Model</h3>
+                    <p>
+                        Uses key details about each Airbnb listing, such as the <b>number of beds, bedrooms, reviews, availability, and host information</b>, to estimate a fair price for the stay.
+                    </p>
+                    <button className="model-btn" onClick={() => navigate("/xgboostForm")}>
+                        Use XGBoost Model
+                    </button>
                 </div>
 
-                {/* Form card */}
-                <div className="form-card">
-                    <form onSubmit={handleSubmit}>
-                        <label>City:</label>
-                        <select name="city" value={formData.city} onChange={handleChange} required>
-                            <option value="">Select</option>
-                            <option value="CHI">Chicago</option>
-                            <option value="DAL">Dallas</option>
-                            <option value="DEN">Denver</option>
-                            <option value="LA">Los Angeles</option>
-                            <option value="NY">New York</option>
-                        </select>
-
-                        <label>Amenities:</label>
-                        <input type="text" name="amenities" value={formData.amenities} onChange={handleChange} required />
-
-                        <label>Minimum Nights:</label>
-                        <input type="number" name="minimum_nights" value={formData.minimum_nights} onChange={handleChange} required />
-
-                        <label>Number of Reviews:</label>
-                        <input type="number" name="number_of_reviews" value={formData.number_of_reviews} onChange={handleChange} required />
-
-                        <label>Calculated Host Listings Count:</label>
-                        <input type="number" name="calculated_host_listings_count" value={formData.calculated_host_listings_count} onChange={handleChange} required />
-
-                        <label>Availability (365 days):</label>
-                        <input type="number" name="availability_365" value={formData.availability_365} onChange={handleChange} required />
-                        
-                        <label>Beds:</label>
-                        <input type="number" name="beds" value={formData.beds} onChange={handleChange} required />
-
-                        <label>Bedrooms:</label>
-                        <input type="number" name="bedrooms" value={formData.bedrooms} onChange={handleChange} required />
-
-                        <label>Accommodates:</label>
-                        <input type="number" name="accommodates" value={formData.accommodates} onChange={handleChange} required />
-
-                        <label>Review Score: Rating</label>
-                        <input type="number" name="review_scores_rating" value={formData.review_scores_rating} onChange={handleChange} />
-                        
-                        <label>Room Type:</label>
-                        <select name="room_type" value={formData.room_type} onChange={handleChange} required>
-                            <option value="">Select</option>
-                            <option value="Entire home/apt">Entire home/apt</option>
-                            <option value="Private room">Private room</option>
-                            <option value="Shared room">Shared room</option>
-                            <option value="Hotel room">Hotel room</option>
-                        </select>
-
-                        <label>Host is Superhost:</label>
-                        <select name="host_is_superhost" value={formData.host_is_superhost} onChange={handleChange} required>
-                            <option value="">Select</option>
-                            <option value="1">Yes</option>
-                            <option value="0">No</option>
-                        </select>
-
-                        <label>ZIP Code:</label>
-                        <input type="text" name="zip" value={formData.zip} onChange={handleChange} required />
-
-                        <label>Season:</label>
-                        <select name="season" value={formData.season} onChange={handleChange} required>
-                            <option value="">Select</option>
-                            <option value="Spring">Spring</option>
-                            <option value="Summer">Summer</option>
-                            <option value="Autumn">Autumn</option>
-                            <option value="Winter">Winter</option>
-                        </select>
-
-                        <button type="submit">Predict Price</button>
-                    </form>
+                {/* LSRT Card */}
+                <div className="model-card">
+                    <h3>LSTM Recurrent Neural Network Model</h3>
+                    <p>
+                        Uses the <b>amenities you select, seasonal patterns, and listing details</b> to predict price while also capturing how Airbnb prices change across different times of the year.
+                    </p>
+                    <button className="model-btn" onClick={() => navigate("/lsrtForm")}>
+                        Use LSRT Model
+                    </button>
                 </div>
+
             </div>
 
             <footer className="footer">
@@ -143,4 +55,4 @@ function InputForm() {
     );
 }
 
-export default InputForm;
+export default InputForm

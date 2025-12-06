@@ -10,23 +10,23 @@ function Contributions() {
         name: 'Chaewon Park*',
         role: 'Team Leader | Statistical Modeling',
         contribution:
-            'Led the team and coordinated project milestones. Developed the statistical modeling framework, including a random effects model for analyzing Airbnb price variations across cities.',
-        skills: 'R, Python, Statistical Modeling',
-        },
+          'Led the team and coordinated project milestones. Developed the Linear Mixed Effects Model (LMM) to analyze city-level Airbnb price variation, incorporating structured random effects to interpret neighborhood-level pricing trends.',
+        skills: 'R, Python, Linear Mixed Models',
+      },
         {
         name: 'Craig Cultice',
-        role: 'Data Analyst | Data Cleaning & Exploratory Analysis',
+        role: 'Data Analyst | Data Processing & Exploratory Analysis',
         contribution:
-            'Worked collaboratively on data cleaning and exploratory data analysis (EDA). Processed Airbnb datasets in R, handled missing values, and performed summary visualizations to identify city-level trends.',
-        skills: 'R, Python, EDA',
-        },
+          'Acquired and assembled the historical Airbnb datasets by downloading archived monthly files and merging them into unified city-level data frames. Cleaned the datasets by removing extraneous features and assessing missingness patterns across variables. Supported the modeling phase by preparing structured CSV exports and contributing to the interpretation of exploratory visualizations.',
+        skills: 'R, Python, Data Cleaning, EDA',
+      },
         {
         name: 'Hongrui Zhuang',
-        role: 'Data Analyst | Data Cleaning & Exploratory Analysis',
+        role: 'Data Analyst | Exploratory Analysis & Feature Preparation',
         contribution:
-            'Collaborated on the data cleaning and EDA phase, focusing on feature inspection, outlier detection, and variable selection for later modeling. Supported the integration of cleaned datasets for visualization.',
-        skills: 'R, Python, EDA',
-        },
+          'Preprocessed price-related variables through filtering and type standardization to ensure model compatibility. Generated a comprehensive suite of exploratory visualizations—including distributional plots, heatmaps, correlation matrices, and summary statistics—to characterize city-level Airbnb pricing behavior. Interpreted these analyses to guide feature selection and improve downstream modeling decisions.',
+        skills: 'R, Python, Visualization, EDA',
+      },
         {
         name: 'Huijie (Jack) Lai',
         role: 'Machine Learning Developer | Predictive Modeling (XGBoost)',
@@ -36,17 +36,17 @@ function Contributions() {
         },
         {
         name: 'Christine Li',
-        role: 'Frontend Developer & Designer | Visualization & UI Design',
+        role: 'Frontend Developer & ML Developer | UI Design, LSRT Model, Interactive Maps',
         contribution:
-            'Co-developed the interactive website using React, designed the homepage and contributions page, and created Canva-based visual assets. Focused on layout design, color consistency, and data storytelling visuals.',
-        skills: 'R, Python, React, Canva Design',
+          'Co-developed the interactive website using React, including the homepage, input form, contributions page, and model-selection interface. Built the LSRT Recurrent Neural Network Model for sequential price prediction using time-stamped Airbnb snapshots. Designed and implemented interactive Leaflet maps for all five cities. Created consistent UI styling and Canva-based graphic assets.',
+        skills: 'R, Python, React, LSTM/LSRT, Leaflet Maps, UI/UX Design',
         },
         {
-        name: 'Himmat Toor',
-        role: 'Web Developer | Integration & Deployment',
-        contribution:
-            'Built and deployed the web application using React and GitHub Pages. Managed frontend functionality, routing, and API integration, working closely with Christine to ensure a cohesive and responsive user experience.',
-        skills: 'React, Python, Web Deployment',
+          name: 'Himmat Toor',
+          role: 'Web Developer | Integration, Deployment & Model Implementation',
+          contribution:
+            'Developed and deployed the web application using React and GitHub Pages. Implemented the predictive models (XGBoost and LSRT) on the webpage by connecting frontend components with backend API endpoints, ensuring smooth browser-to-model communication. Managed routing, responsiveness, and frontend–backend integration to support real-time predictions.',
+          skills: 'React, Python, Web Deployment, API Integration',
         },
     ];
 
