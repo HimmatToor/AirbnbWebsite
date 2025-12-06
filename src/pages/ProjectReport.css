@@ -1,71 +1,84 @@
-/* MAIN PAGE CONTAINER */
 .report-page {
-  min-height: 100vh;
-  background-color: #fafafa;
-  font-family: 'Inter', sans-serif;
-  padding-bottom: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    padding: 40px;
+    font-family: 'Inter', sans-serif;
+    background: #fafafa;
+    min-height: 100vh;
 }
 
-/* TOP NAVIGATION */
 .top-nav {
-  display: flex;
-  gap: 12px;
-  padding: 20px;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 30px;
 }
 
 .nav-btn {
-  background-color: #ff6b6b;
-  border: none;
-  color: white;
-  padding: 8px 18px;
-  font-size: 14px;
-  font-weight: 600;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: 0.18s;
+    background-color: #ff6b6b;
+    border: none;
+    color: #fff;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
 }
 
 .nav-btn:hover {
-  background-color: #ff4f4f;
+    background-color: #ff4f4f;
 }
 
-/* TITLE */
 .report-title {
-  margin-top: 10px;
-  text-align: center;
-  font-size: 34px;
-  font-weight: 800;
-  color: #ff4f4f;
+    text-align: center;
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 0;
+    color: #ff6b6b;
 }
 
-/* PDF EMBED */
-.pdf-container {
-  width: 90%;
-  max-width: 1050px;
-  height: 90vh;
-  margin-top: 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  border-radius: 12px;
-  overflow: hidden;
-  background: white;
+.report-authors {
+    text-align: center;
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 40px;
 }
 
-.pdf-frame {
-  width: 100%;
-  height: 100%;
-  border: none;
+section {
+    max-width: 900px;
+    margin: 0 auto 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.05);
 }
 
-/* FOOTER – matches Contributions page exactly */
+h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+}
+
+h3, h4 {
+    font-weight: 600;
+    color: #444;
+    margin-top: 20px;
+}
+
+ul {
+    margin-left: 20px;
+}
+
 .footer {
-  margin-top: 30px;
-  width: 100%;
-  text-align: center;
-  padding: 15px 0;
-  font-size: 14px;
-  color: #777;
-  font-family: 'Inter', sans-serif;
+    text-align: center;
+    margin-top: 40px;
+    padding-bottom: 20px;
+    color: #666;
 }
+
+/* Indent all paragraphs for readability */
+section p {
+    text-indent: 2em;   /* standard academic-style indentation */
+    margin-top: 12px;
+    line-height: 1.6;
+}
+

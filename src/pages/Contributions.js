@@ -11,30 +11,9 @@ function Contributions() {
         role: 'Team Leader | Statistical Modeling',
         contribution:
           'Led the team and coordinated project milestones. Developed the Linear Mixed Effects Model (LMM) to analyze city-level Airbnb price variation, incorporating structured random effects to interpret neighborhood-level pricing trends.',
-        skills: 'R, Python, Linear Mixed Models',
-      },
-        {
-        name: 'Craig Cultice',
-        role: 'Data Analyst | Data Processing & Exploratory Analysis',
-        contribution:
-          'Acquired and assembled the historical Airbnb datasets by downloading archived monthly files and merging them into unified city-level data frames. Cleaned the datasets by removing extraneous features and assessing missingness patterns across variables. Supported the modeling phase by preparing structured CSV exports and contributing to the interpretation of exploratory visualizations.',
-        skills: 'R, Python, Data Cleaning, EDA',
-      },
-        {
-        name: 'Hongrui Zhuang',
-        role: 'Data Analyst | Exploratory Analysis & Feature Preparation',
-        contribution:
-          'Preprocessed price-related variables through filtering and type standardization to ensure model compatibility. Generated a comprehensive suite of exploratory visualizations—including distributional plots, heatmaps, correlation matrices, and summary statistics—to characterize city-level Airbnb pricing behavior. Interpreted these analyses to guide feature selection and improve downstream modeling decisions.',
-        skills: 'R, Python, Visualization, EDA',
-      },
-        {
-        name: 'Huijie (Jack) Lai',
-        role: 'Machine Learning Developer | Predictive Modeling (XGBoost)',
-        contribution:
-            'Implemented and optimized the XGBoost model to predict Airbnb prices using key variables such as location, room type, and review scores. Tuned hyperparameters and compared model performance metrics.',
-        skills: 'R, Python, XGBoost',
+        skills: 'R, Linear Mixed Models',
         },
-        {
+          {
         name: 'Christine Li',
         role: 'Frontend Developer & ML Developer | UI Design, LSRT Model, Interactive Maps',
         contribution:
@@ -42,11 +21,32 @@ function Contributions() {
         skills: 'R, Python, React, LSTM/LSRT, Leaflet Maps, UI/UX Design',
         },
         {
+        name: 'Craig Cultice',
+        role: 'Data Analyst | Data Processing & Exploratory Analysis',
+        contribution:
+          'Acquired and assembled the historical Airbnb datasets by downloading archived monthly files and merging them into unified city-level data frames. Cleaned the datasets by removing extraneous features and assessing missingness patterns across variables. Supported the modeling phase by preparing structured CSV exports and contributing to the interpretation of exploratory visualizations.',
+        skills: 'R, Data Cleaning, EDA',
+        },
+        {
           name: 'Himmat Toor',
           role: 'Web Developer | Integration, Deployment & Model Implementation',
           contribution:
             'Developed and deployed the web application using React and GitHub Pages. Implemented the predictive models (XGBoost and LSRT) on the webpage by connecting frontend components with backend API endpoints, ensuring smooth browser-to-model communication. Managed routing, responsiveness, and frontend–backend integration to support real-time predictions.',
           skills: 'React, Python, Web Deployment, API Integration',
+        },
+        {
+        name: 'Hongrui Zhuang',
+        role: 'Data Analyst | Exploratory Analysis & Feature Preparation',
+        contribution:
+          'Preprocessed price-related variables through filtering and type standardization to ensure model compatibility. Generated a comprehensive suite of exploratory visualizations, including distributional plots, heatmaps, correlation matrices, and summary statistics, to characterize city-level Airbnb pricing behavior. Interpreted these analyses to guide feature selection and improve downstream modeling decisions.',
+        skills: 'R, Visualization, EDA',
+      },
+        {
+        name: 'Huijie (Jack) Lai',
+        role: 'Machine Learning Developer | Predictive Modeling (XGBoost)',
+        contribution:
+            'Implemented and optimized the XGBoost model to predict Airbnb prices using key variables such as location, room type, and review scores. Tuned hyperparameters and compared model performance metrics.',
+        skills: 'R, XGBoost',
         },
     ];
 
