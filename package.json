@@ -1,8 +1,9 @@
 {
+  "homepage": "https://HimmatToor.github.io/AirbnbWebsite",
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy:": "https://deploybackend-964220208800.us-west2.run.app",
+  "proxy": "https://deploybackend-964220208800.us-west2.run.app",
   "dependencies": {
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
