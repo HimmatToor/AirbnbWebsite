@@ -127,9 +127,9 @@ function XGBoostForm() {
             });
 
             const data = await response.json();
-            console.log("XGBoost Prediction:", data);
+            console.log("XGB Prediction:", data);
 
-            setPrediction(data.predicted_price);
+            setPrediction(data.prediction);
 
         } catch (err) {
             console.error(err);
@@ -228,7 +228,7 @@ function XGBoostForm() {
                         <div className="prediction-box" ref={predictionRef}>
                             <h3 className="prediction-title">Predicted Price</h3>
                             <p className="prediction-value">${Number(prediction).toFixed(2)}</p>
-                            <p className="prediction-note">(Estimated nightly price based on XGBoost model)</p>
+                            <p className="prediction-note">(Estimated per night price based on XGBoost model)</p>
                         </div>
                     )}
 
