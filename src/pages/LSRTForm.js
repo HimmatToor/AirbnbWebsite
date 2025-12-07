@@ -48,10 +48,20 @@ function LSRTForm() {
 
     const [error, setError] = useState("");
     const [showDropdown, setShowDropdown] = useState(false);
+    const [prediction, setPrediction] = useState(null);  // ⭐ NEW
 
     const containerRef = useRef(null);
     const inputRef = useRef(null);
+    const predictionRef = useRef(null);
 
+    // ⭐ Auto-scroll when prediction appears
+    useEffect(() => {
+        if (prediction !== null && predictionRef.current) {
+            predictionRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+    }, [prediction]);
+
+    // Handle text/number changes
     const handleChange = (e) => {
         setFormData({
             ...formData,
@@ -60,24 +70,47 @@ function LSRTForm() {
         setError("");
     };
 
+    // Toggle amenity selection
     const toggleAmenity = (amenity) => {
-        let updated = [...formData.amenities];
-        if (updated.includes(amenity)) {
-            updated = updated.filter(a => a !== amenity);
-        } else {
-            updated.push(amenity);
-        }
+        const updated = formData.amenities.includes(amenity)
+            ? formData.amenities.filter(a => a !== amenity)
+            : [...formData.amenities, amenity];
+
         setFormData({ ...formData, amenities: updated });
     };
 
+    // Backspace removes last tag
     const handleBackspace = (e) => {
         if (e.key === "Backspace" && formData.amenities.length > 0 && inputRef.current === document.activeElement) {
-            let updated = [...formData.amenities];
+            const updated = [...formData.amenities];
             updated.pop();
             setFormData({ ...formData, amenities: updated });
         }
     };
 
+    // ⭐ Reset form
+    const handleReset = () => {
+        setFormData({
+            city: "",
+            amenities: [],
+            minimum_nights: "",
+            number_of_reviews: "",
+            calculated_host_listings_count: "",
+            availability_365: "",
+            beds: "",
+            bedrooms: "",
+            accommodates: "",
+            review_scores_rating: "",
+            room_type: "",
+            host_is_superhost: "",
+            zip: "",
+            season: ""
+        });
+        setError("");
+        setPrediction(null);
+    };
+
+    // Validation
     const validateForm = () => {
         const numericFields = [
             "minimum_nights", "number_of_reviews", "calculated_host_listings_count",
@@ -90,8 +123,8 @@ function LSRTForm() {
             }
         }
 
-        let r = Number(formData.review_scores_rating);
-        if (r < 1 || r > 5) return "Review score must be 1–5.";
+        const rating = Number(formData.review_scores_rating);
+        if (rating < 1 || rating > 5) return "Review score must be between 1–5.";
 
         if (!["1", "0"].includes(formData.host_is_superhost))
             return "Superhost must be TRUE or FALSE.";
@@ -120,6 +153,7 @@ function LSRTForm() {
         );
     };
 
+    // Submit form
     const handleSubmit = async (e) => {
         e.preventDefault();
         const err = validateForm();
@@ -131,14 +165,19 @@ function LSRTForm() {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),
             });
+
             const data = await res.json();
-            console.log(data);
+            console.log("LSRT Prediction:", data);
+
+            setPrediction(data.predicted_price); // ⭐ NEW
+
         } catch (error) {
             console.error(error);
             setError("Backend error");
         }
     };
 
+    // Close dropdown when clicking outside
     useEffect(() => {
         const handleClickOutside = (e) => {
             if (containerRef.current && !containerRef.current.contains(e.target)) {
@@ -171,7 +210,7 @@ function LSRTForm() {
 
                 <form onSubmit={handleSubmit}>
 
-                    {/* City */}
+                    {/* CITY */}
                     <label>City:</label>
                     <select name="city" value={formData.city} onChange={handleChange} required>
                         <option value="">Select</option>
@@ -182,7 +221,7 @@ function LSRTForm() {
                         <option value="NY">New York</option>
                     </select>
 
-                    {/* Amenities */}
+                    {/* AMENITIES */}
                     <label>Amenities (select multiple):</label>
 
                     <div
@@ -234,7 +273,7 @@ function LSRTForm() {
                         )}
                     </div>
 
-                    {/* Numeric fields */}
+                    {/* INPUTS */}
                     <label>Minimum Nights:</label>
                     <input type="number" min="1" name="minimum_nights" value={formData.minimum_nights} onChange={handleChange} required />
 
@@ -274,9 +313,9 @@ function LSRTForm() {
                         <option value="0">FALSE</option>
                     </select>
 
+                    {/* ZIP Code */}
                     <label>ZIP Code:</label>
-                        <input type="text" name="zip" value={formData.zip} onChange={handleChange} required />
-
+                    <input type="text" name="zip" value={formData.zip} onChange={handleChange} required />
 
                     {/* Season */}
                     <label>Season:</label>
@@ -288,8 +327,22 @@ function LSRTForm() {
                         <option value="Winter">Winter</option>
                     </select>
 
-                    <button type="submit">Predict Price</button>
+                    {/* BUTTON ROW */}
+                    <div className="form-button-row">
+                        <button type="submit" className="submit-btn">Predict Price</button>
+                        <button type="button" className="reset-btn" onClick={handleReset}>Reset Form</button>
+                    </div>
                 </form>
+
+                {/* ⭐ Prediction Output */}
+                {prediction !== null && (
+                    <div className="prediction-box" ref={predictionRef}>
+                        <h3 className="prediction-title">Predicted Price</h3>
+                        <p className="prediction-value">${Number(prediction).toFixed(2)}</p>
+                        <p className="prediction-note">(Estimated nightly price based on LSRT model)</p>
+                    </div>
+                )}
+
             </div>
 
             <footer className="footer">

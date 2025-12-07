@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./InputForm.css";
 
@@ -21,8 +21,18 @@ function XGBoostForm() {
     });
 
     const [error, setError] = useState("");
+    const [prediction, setPrediction] = useState(null);
 
-    // Handle change
+    // ⭐ For auto-scroll
+    const predictionRef = useRef(null);
+
+    useEffect(() => {
+        if (prediction !== null && predictionRef.current) {
+            predictionRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+    }, [prediction]);
+
+    // Handle input changes
     const handleChange = (e) => {
         setFormData({
             ...formData,
@@ -31,16 +41,15 @@ function XGBoostForm() {
         setError("");
     };
 
-    const getRoomTypeOptions = () => {
-        return (
-            <>
-                <option value="Entire home/apt">Entire home/apt</option>
-                <option value="Private room">Private room</option>
-                <option value="Hotel room">Hotel room</option>
-                <option value="Shared room">Shared room</option>
-            </>
-        );
-    };
+    // Room type options
+    const getRoomTypeOptions = () => (
+        <>
+            <option value="Entire home/apt">Entire home/apt</option>
+            <option value="Private room">Private room</option>
+            <option value="Hotel room">Hotel room</option>
+            <option value="Shared room">Shared room</option>
+        </>
+    );
 
     // Validation
     const validateForm = () => {
@@ -66,7 +75,7 @@ function XGBoostForm() {
         ];
 
         for (let field of reviewFields) {
-            let val = Number(formData[field]);
+            const val = Number(formData[field]);
             if (val < 1 || val > 5) {
                 return `${field.replace(/_/g, " ")} must be between 1 and 5.`;
             }
@@ -79,7 +88,28 @@ function XGBoostForm() {
         return null;
     };
 
-    // Submit
+    // ⭐ Reset Form
+    const handleReset = () => {
+        setFormData({
+            city: "",
+            accommodates: "",
+            bedrooms: "",
+            beds: "",
+            room_type: "",
+            host_is_superhost: "",
+            minimum_nights: "",
+            availability_365: "",
+            number_of_reviews: "",
+            review_scores_rating: "",
+            review_scores_checkin: "",
+            review_scores_accuracy: ""
+        });
+
+        setError("");
+        setPrediction(null);
+    };
+
+    // Submit function
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -99,6 +129,8 @@ function XGBoostForm() {
             const data = await response.json();
             console.log("XGBoost Prediction:", data);
 
+            setPrediction(data.predicted_price);
+
         } catch (err) {
             console.error(err);
             setError("Backend error. Please try again.");
@@ -108,7 +140,7 @@ function XGBoostForm() {
     return (
         <div className="input-form-container">
 
-            {/* 🔙 Upper-left BACK BUTTON */}
+            {/* 🔙 Back Button */}
             <div className="ny-topbar">
                 <button className="back-button" onClick={() => navigate("/inputForm")}>
                     ← Back
@@ -183,8 +215,22 @@ function XGBoostForm() {
                     <label>Review Score: Accuracy (1–5)</label>
                     <input type="number" min="1" max="5" step="0.01" name="review_scores_accuracy" value={formData.review_scores_accuracy} onChange={handleChange} />
 
-                    <button type="submit">Predict Price</button>
+                    {/* Buttons Row */}
+                    <div className="form-button-row">
+                        <button type="submit" className="submit-btn">Predict Price</button>
+                        <button type="button" className="reset-btn" onClick={handleReset}>Reset Form</button>
+                    </div>
                 </form>
+
+                {/* ⭐ Prediction Box (Auto-scroll target) */}
+                {prediction !== null && (
+                    <div className="prediction-box" ref={predictionRef}>
+                        <h3 className="prediction-title">Predicted Price</h3>
+                        <p className="prediction-value">${Number(prediction).toFixed(2)}</p>
+                        <p className="prediction-note">(Estimated nightly price based on XGBoost model)</p>
+                    </div>
+                )}
+
             </div>
 
             <footer className="footer">
@@ -194,4 +240,4 @@ function XGBoostForm() {
     );
 }
 
-export default XGBoostForm
+export default XGBoostForm;
