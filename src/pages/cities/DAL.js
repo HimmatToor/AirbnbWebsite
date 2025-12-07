@@ -26,7 +26,7 @@ function DAL() {
 
   // Load CSV Data
   useEffect(() => {
-    Papa.parse('/data/DAL.csv', {
+    Papa.parse(`${process.env.PUBLIC_URL}/data/DAL.csv`, {
       download: true,
       header: true,
       dynamicTyping: true,

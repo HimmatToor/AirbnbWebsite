@@ -26,7 +26,7 @@ function DEN() {
 
   // Load CSV Data
   useEffect(() => {
-    Papa.parse('/data/DEN.csv', {
+    Papa.parse(`${process.env.PUBLIC_URL}/data/DEN.csv`, {
       download: true,
       header: true,
       dynamicTyping: true,

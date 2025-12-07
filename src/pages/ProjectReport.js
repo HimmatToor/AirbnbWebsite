@@ -37,12 +37,12 @@ function ProjectReport() {
 
                     <div className="figure-row">
                         <div className="overview-figure figure-small">
-                            <img src="/assets/dallas_hist.png" alt="Dallas Price Distribution" />
+                            <img src={`${process.env.PUBLIC_URL}/assets/dallas_hist.png`} alt="Dallas Price Distribution" />
                             <p className="figure-caption">Figure 1. Histogram of Dallas price distribution.</p>
                         </div>
 
                         <div className="overview-figure figure-small">
-                            <img src="/assets/la_hist.png" alt="LA Histogram" />
+                            <img src={`${process.env.PUBLIC_URL}/assets/la_hist.png`} alt="LA Histogram" />
                             <p className="figure-caption">Figure 2. Histogram of Los Angeles price distribution.</p>
                         </div>
                     </div>
@@ -77,12 +77,12 @@ function ProjectReport() {
 
                     <div className="figure-row">
                         <div className="overview-figure figure-small">
-                            <img src="/assets/ny_roomtype_boxplot.png" alt="NY Room Type Boxplot" />
+                            <img src={`${process.env.PUBLIC_URL}/assets/ny_roomtype_boxplot.png`} alt="NY Room Type Boxplot" />
                             <p className="figure-caption">Figure 3. Boxplot of New York prices by room type.</p>
                         </div>
 
                         <div className="overview-figure figure-small">
-                            <img src="/assets/ny_roomtype_violin.png" alt="NY Room Type Violin Plot" />
+                            <img src={`${process.env.PUBLIC_URL}/assets/ny_roomtype_violin.png`} alt="NY Room Type Violin Plot" />
                             <p className="figure-caption">Figure 4. Violin–boxplot of New York prices by room type.</p>
                         </div>
                     </div>
@@ -107,24 +107,24 @@ function ProjectReport() {
 
 
                     <div className="overview-figure figure-small">
-                        <img src="/assets/chicago_corr_heatmap.png" alt="Chicago Correlation Heatmap" />
+                        <img src={`${process.env.PUBLIC_URL}/assets/chicago_corr_heatmap.png`} alt="Chicago Correlation Heatmap" />
                         <p className="figure-caption">Figure 5. Correlation heatmap of Airbnb features in Chicago.</p>
                     </div>
 
                     <div className="figure-row">
                         <div className="overview-figure figure-small">
-                            <img src="/assets/chicago_price_vs_rating.png" alt="Price vs Rating" />
+                            <img src={`${process.env.PUBLIC_URL}/assets/chicago_price_vs_rating.png`} alt="Price vs Rating" />
                             <p className="figure-caption">Figure 6. Scatterplot of Chicago price vs. review score rating.</p>
                         </div>
 
                         <div className="overview-figure figure-small">
-                            <img src="/assets/chicago_price_vs_availability.png" alt="Price vs Availability" />
+                            <img src={`${process.env.PUBLIC_URL}/assets/chicago_price_vs_availability.png`} alt="Price vs Availability" />
                             <p className="figure-caption">Figure 7. Scatterplot of Chicago price vs. availability.</p>
                         </div>
                     </div>
 
                         <div className="overview-figure figure-small">
-                            <img src="/assets/la_spatial_map.png" alt="LA Spatial Price Map" />
+                            <img src={`${process.env.PUBLIC_URL}/assets/la_spatial_map.png`} alt="LA Spatial Price Map" />
                             <p className="figure-caption">Figure 8. Latitude–longitude price map of Los Angeles.</p>
                         </div>
 
@@ -138,14 +138,14 @@ function ProjectReport() {
                     </p>
 
                     <div className="overview-figure figure-large">
-                        <img src="/assets/lmm_qqplots.png" alt="LMM QQ Plots" />
+                        <img src={`${process.env.PUBLIC_URL}/assets/lmm_qqplots.png`} alt="LMM QQ Plots" />
                         <p className="figure-caption">
                             Figure 9. QQ plots of standardized residuals for the LMM across cities.
                         </p>
                     </div>
 
                     <div className="overview-figure figure-large">
-                        <img src="/assets/lmm_residuals.png" alt="LMM Residuals vs Fitted" />
+                        <img src={`${process.env.PUBLIC_URL}/assets/lmm_residuals.png`} alt="LMM Residuals vs Fitted" />
                         <p className="figure-caption">
                             Figure 10. Residuals vs. fitted values for the LMM across cities.
                         </p>
@@ -180,7 +180,7 @@ function ProjectReport() {
                     </p>
 
                     <div className="overview-figure figure-large">
-                        <img src="/assets/xgb_pred_vs_actual.png" alt="XGBoost Prediction vs Actual" />
+                        <img src={`${process.env.PUBLIC_URL}/assets/xgb_pred_vs_actual.png`} alt="XGBoost Prediction vs Actual" />
                         <p className="figure-caption">
                             Figure 11. Prediction vs. actual prices for XGBoost across cities.
                         </p>

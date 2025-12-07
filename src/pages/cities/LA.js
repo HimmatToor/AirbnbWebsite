@@ -26,7 +26,7 @@ function LA() {
 
   // Load CSV
   useEffect(() => {
-    Papa.parse('/data/LA.csv', {
+    Papa.parse(`${process.env.PUBLIC_URL}/data/LA.csv`, {
       download: true,
       header: true,
       dynamicTyping: true,
