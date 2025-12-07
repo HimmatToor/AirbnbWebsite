@@ -17,8 +17,7 @@ function XGBoostForm() {
         number_of_reviews: "",
         review_scores_rating: "",
         review_scores_checkin: "",
-        review_scores_accuracy: "",
-        zip: ""
+        review_scores_accuracy: ""
     });
 
     const [error, setError] = useState("");
@@ -32,21 +31,13 @@ function XGBoostForm() {
         setError("");
     };
 
-    // Restrict hotel room for DAL & DEN
     const getRoomTypeOptions = () => {
-        if (formData.city === "DAL" || formData.city === "DEN") {
-            return (
-                <>
-                    <option value="Entire home/apt">Entire home/apt</option>
-                    <option value="Private room">Private room</option>
-                </>
-            );
-        }
         return (
             <>
                 <option value="Entire home/apt">Entire home/apt</option>
                 <option value="Private room">Private room</option>
                 <option value="Hotel room">Hotel room</option>
+                <option value="Shared room">Shared room</option>
             </>
         );
     };
@@ -99,7 +90,7 @@ function XGBoostForm() {
         }
 
         try {
-            const response = await fetch("http://127.0.0.1:5000/predict_xgb", {
+            const response = await fetch("http://127.0.0.1:5000/predict_XGB", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),
@@ -184,13 +175,13 @@ function XGBoostForm() {
                     <input type="number" min="1" name="number_of_reviews" value={formData.number_of_reviews} onChange={handleChange} required />
 
                     <label>Review Score: Rating (1–5)</label>
-                    <input type="number" min="1" max="5" name="review_scores_rating" value={formData.review_scores_rating} onChange={handleChange} />
+                    <input type="number" min="1" max="5" step="0.01" name="review_scores_rating" value={formData.review_scores_rating} onChange={handleChange} />
 
                     <label>Review Score: Check-in (1–5)</label>
-                    <input type="number" min="1" max="5" name="review_scores_checkin" value={formData.review_scores_checkin} onChange={handleChange} />
+                    <input type="number" min="1" max="5" step="0.01" name="review_scores_checkin" value={formData.review_scores_checkin} onChange={handleChange} />
 
                     <label>Review Score: Accuracy (1–5)</label>
-                    <input type="number" min="1" max="5" name="review_scores_accuracy" value={formData.review_scores_accuracy} onChange={handleChange} />
+                    <input type="number" min="1" max="5" step="0.01" name="review_scores_accuracy" value={formData.review_scores_accuracy} onChange={handleChange} />
 
                     <button type="submit">Predict Price</button>
                 </form>

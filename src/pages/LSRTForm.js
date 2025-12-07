@@ -42,6 +42,7 @@ function LSRTForm() {
         review_scores_rating: "",
         room_type: "",
         host_is_superhost: "",
+        zip: "",
         season: ""
     });
 
@@ -92,7 +93,7 @@ function LSRTForm() {
         let r = Number(formData.review_scores_rating);
         if (r < 1 || r > 5) return "Review score must be 1–5.";
 
-        if (!["TRUE", "FALSE"].includes(formData.host_is_superhost))
+        if (!["1", "0"].includes(formData.host_is_superhost))
             return "Superhost must be TRUE or FALSE.";
 
         if (!formData.season) return "Please select a season.";
@@ -125,7 +126,7 @@ function LSRTForm() {
         if (err) return setError(err);
 
         try {
-            const res = await fetch("http://127.0.0.1:5000/predict_lsrt", {
+            const res = await fetch("http://127.0.0.1:5000/predict_RNN", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),
@@ -256,7 +257,7 @@ function LSRTForm() {
                     <input type="number" min="1" name="accommodates" value={formData.accommodates} onChange={handleChange} required />
 
                     <label>Review Score: Rating (1–5)</label>
-                    <input type="number" min="1" max="5" name="review_scores_rating" value={formData.review_scores_rating} onChange={handleChange} required />
+                    <input type="number" min="1" max="5" step="0.01" name="review_scores_rating" value={formData.review_scores_rating} onChange={handleChange} required />
 
                     {/* Room Type */}
                     <label>Room Type:</label>
@@ -269,9 +270,13 @@ function LSRTForm() {
                     <label>Host is Superhost:</label>
                     <select name="host_is_superhost" value={formData.host_is_superhost} onChange={handleChange} required>
                         <option value="">Select</option>
-                        <option value="TRUE">TRUE</option>
-                        <option value="FALSE">FALSE</option>
+                        <option value="1">TRUE</option>
+                        <option value="0">FALSE</option>
                     </select>
+
+                    <label>ZIP Code:</label>
+                        <input type="text" name="zip" value={formData.zip} onChange={handleChange} required />
+
 
                     {/* Season */}
                     <label>Season:</label>
