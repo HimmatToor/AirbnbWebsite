@@ -68,12 +68,16 @@ ul {
     margin-left: 20px;
 }
 
+/* Footer */
 .footer {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
     text-align: center;
-    margin-top: 40px;
-    padding-bottom: 20px;
-    color: #666;
-}
+    font-size: 0.9rem;
+    color: #f0f0f0;
+    z-index: 1;
+  }
 
 /* Indent all paragraphs for readability */
 section p {

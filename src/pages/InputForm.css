@@ -3,6 +3,7 @@
     min-height: 100vh;
     background-color: #fafafa;
     padding: 40px;
+    margin-bottom: 60px;
     font-family: 'Inter', sans-serif;
 }
 
@@ -134,27 +135,6 @@ form select {
     background-color: #fff;
 }
 
-/* SUBMIT BUTTON */
-form button[type="submit"] {
-    width: auto !important;  
-    display: inline-flex !important;
-    justify-content: center;
-    background-color: #ff6b6b;
-    color: white;
-    padding: 12px;
-    border: none;
-    border-radius: 10px;
-    font-size: 16px;
-    font-weight: 700;
-    margin-top: 20px;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-form button[type="submit"]:hover {
-    background-color: #ff6b6b;
-}
-
 
 /* BACK BUTTON (Used in form pages) */
 .back-btn {
@@ -178,12 +158,14 @@ form button[type="submit"]:hover {
 
 /* FOOTER */
 .footer {
-    margin-top: 40px;
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
     text-align: center;
-    font-size: 14px;
-    padding: 10px;
-    color: #777;
-}
+    font-size: 0.9rem;
+    color: #f0f0f0;
+    z-index: 1;
+  }
 
 /* ============================
    TAG MULTI-SELECT (Select-like)
@@ -290,24 +272,6 @@ form button[type="submit"]:hover {
   margin-top: 20px;
 }
 
-/* Button Base Style */
-.submit-btn,
-.reset-btn {
-  width: 180px;                 /* ⭐ SAME WIDTH */
-  height: 44px;                 /* ⭐ SAME HEIGHT */
-  background-color: #ff6b6b;
-  border: none;
-  color: white;
-  font-size: 15px;
-  font-weight: 600;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.2s ease-in-out;
-  font-family: 'Inter', sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
 /* Hover animations */
 .submit-btn:hover {
@@ -315,6 +279,7 @@ form button[type="submit"]:hover {
 }
 
 .reset-btn {
+  color: grey;
   background-color: #777;
 }
 

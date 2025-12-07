@@ -160,7 +160,7 @@ function LSRTForm() {
         if (err) return setError(err);
 
         try {
-            const res = await fetch("http://127.0.0.1:5000/predict_RNN", {
+            const res = await fetch("https://deploybackend-964220208800.us-west2.run.app/predict_RNN", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),
@@ -189,162 +189,164 @@ function LSRTForm() {
     }, []);
 
     return (
-        <div className="input-form-container">
+        <div>
+            <div className="input-form-container">
 
-            <div className="ny-topbar">
-                <button className="back-button" onClick={() => navigate("/inputForm")}>← Back</button>
-            </div>
+                <div className="ny-topbar">
+                    <button className="back-button" onClick={() => navigate("/inputForm")}>← Back</button>
+                </div>
 
-            <h2>LSRT Price Prediction</h2>
+                <h2>LSRT Price Prediction</h2>
 
-            <div className="nav-buttons">
-                <button onClick={() => navigate("/")}>Home</button>
-                <button onClick={() => navigate("/projectReport")}>Project Report</button>
-                <button onClick={() => navigate("/cities")}>Explore Cities</button>
-                <button onClick={() => navigate("/contributions")}>Contributions</button>
-            </div>
+                <div className="nav-buttons">
+                    <button onClick={() => navigate("/")}>Home</button>
+                    <button onClick={() => navigate("/projectReport")}>Project Report</button>
+                    <button onClick={() => navigate("/cities")}>Explore Cities</button>
+                    <button onClick={() => navigate("/contributions")}>Contributions</button>
+                </div>
 
-            <div className="form-card">
+                <div className="form-card">
 
-                {error && <p style={{ color: "red", fontWeight: 600 }}>{error}</p>}
+                    {error && <p style={{ color: "red", fontWeight: 600 }}>{error}</p>}
 
-                <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit}>
 
-                    {/* CITY */}
-                    <label>City:</label>
-                    <select name="city" value={formData.city} onChange={handleChange} required>
-                        <option value="">Select</option>
-                        <option value="CHI">Chicago</option>
-                        <option value="DAL">Dallas</option>
-                        <option value="DEN">Denver</option>
-                        <option value="LA">Los Angeles</option>
-                        <option value="NY">New York</option>
-                    </select>
+                        {/* CITY */}
+                        <label>City:</label>
+                        <select name="city" value={formData.city} onChange={handleChange} required>
+                            <option value="">Select</option>
+                            <option value="CHI">Chicago</option>
+                            <option value="DAL">Dallas</option>
+                            <option value="DEN">Denver</option>
+                            <option value="LA">Los Angeles</option>
+                            <option value="NY">New York</option>
+                        </select>
 
-                    {/* AMENITIES */}
-                    <label>Amenities (select multiple):</label>
+                        {/* AMENITIES */}
+                        <label>Amenities (select multiple):</label>
 
-                    <div
-                        ref={containerRef}
-                        className={`tag-multi-select ${showDropdown ? "open" : ""}`}
-                    >
                         <div
-                            className="tag-input-box"
-                            tabIndex={0}
-                            onClick={() => setShowDropdown(!showDropdown)}
-                            onKeyDown={handleBackspace}
-                            ref={inputRef}
+                            ref={containerRef}
+                            className={`tag-multi-select ${showDropdown ? "open" : ""}`}
                         >
-                            {formData.amenities.length === 0 ? (
-                                <span className="placeholder">Select amenities...</span>
-                            ) : (
-                                formData.amenities.map((a) => (
-                                    <div className="tag" key={a}>
-                                        {a}
-                                        <span
-                                            className="remove-tag"
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                toggleAmenity(a);
-                                            }}
-                                        >
-                                            ×
-                                        </span>
-                                    </div>
-                                ))
+                            <div
+                                className="tag-input-box"
+                                tabIndex={0}
+                                onClick={() => setShowDropdown(!showDropdown)}
+                                onKeyDown={handleBackspace}
+                                ref={inputRef}
+                            >
+                                {formData.amenities.length === 0 ? (
+                                    <span className="placeholder">Select amenities...</span>
+                                ) : (
+                                    formData.amenities.map((a) => (
+                                        <div className="tag" key={a}>
+                                            {a}
+                                            <span
+                                                className="remove-tag"
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    toggleAmenity(a);
+                                                }}
+                                            >
+                                                ×
+                                            </span>
+                                        </div>
+                                    ))
+                                )}
+                            </div>
+
+                            {showDropdown && (
+                                <div className="tag-dropdown">
+                                    {AMENITY_OPTIONS.map((amenity) => {
+                                        const selected = formData.amenities.includes(amenity);
+                                        return (
+                                            <div
+                                                key={amenity}
+                                                className={`dropdown-option ${selected ? "selected" : ""}`}
+                                                onClick={() => toggleAmenity(amenity)}
+                                            >
+                                                {amenity}
+                                            </div>
+                                        );
+                                    })}
+                                </div>
                             )}
                         </div>
 
-                        {showDropdown && (
-                            <div className="tag-dropdown">
-                                {AMENITY_OPTIONS.map((amenity) => {
-                                    const selected = formData.amenities.includes(amenity);
-                                    return (
-                                        <div
-                                            key={amenity}
-                                            className={`dropdown-option ${selected ? "selected" : ""}`}
-                                            onClick={() => toggleAmenity(amenity)}
-                                        >
-                                            {amenity}
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        )}
-                    </div>
+                        {/* INPUTS */}
+                        <label>Minimum Nights:</label>
+                        <input type="number" min="1" name="minimum_nights" value={formData.minimum_nights} onChange={handleChange} required />
 
-                    {/* INPUTS */}
-                    <label>Minimum Nights:</label>
-                    <input type="number" min="1" name="minimum_nights" value={formData.minimum_nights} onChange={handleChange} required />
+                        <label>Number of Reviews:</label>
+                        <input type="number" min="1" name="number_of_reviews" value={formData.number_of_reviews} onChange={handleChange} required />
 
-                    <label>Number of Reviews:</label>
-                    <input type="number" min="1" name="number_of_reviews" value={formData.number_of_reviews} onChange={handleChange} required />
+                        <label>Host Listings Count:</label>
+                        <input type="number" min="1" name="calculated_host_listings_count" value={formData.calculated_host_listings_count} onChange={handleChange} required />
 
-                    <label>Host Listings Count:</label>
-                    <input type="number" min="1" name="calculated_host_listings_count" value={formData.calculated_host_listings_count} onChange={handleChange} required />
+                        <label>Availability (365):</label>
+                        <input type="number" min="1" max="365" name="availability_365" value={formData.availability_365} onChange={handleChange} required />
 
-                    <label>Availability (365):</label>
-                    <input type="number" min="1" max="365" name="availability_365" value={formData.availability_365} onChange={handleChange} required />
+                        <label>Beds:</label>
+                        <input type="number" min="1" name="beds" value={formData.beds} onChange={handleChange} required />
 
-                    <label>Beds:</label>
-                    <input type="number" min="1" name="beds" value={formData.beds} onChange={handleChange} required />
+                        <label>Bedrooms:</label>
+                        <input type="number" min="1" name="bedrooms" value={formData.bedrooms} onChange={handleChange} required />
 
-                    <label>Bedrooms:</label>
-                    <input type="number" min="1" name="bedrooms" value={formData.bedrooms} onChange={handleChange} required />
+                        <label>Accommodates:</label>
+                        <input type="number" min="1" name="accommodates" value={formData.accommodates} onChange={handleChange} required />
 
-                    <label>Accommodates:</label>
-                    <input type="number" min="1" name="accommodates" value={formData.accommodates} onChange={handleChange} required />
+                        <label>Review Score: Rating (1–5)</label>
+                        <input type="number" min="1" max="5" step="0.01" name="review_scores_rating" value={formData.review_scores_rating} onChange={handleChange} required />
 
-                    <label>Review Score: Rating (1–5)</label>
-                    <input type="number" min="1" max="5" step="0.01" name="review_scores_rating" value={formData.review_scores_rating} onChange={handleChange} required />
+                        {/* Room Type */}
+                        <label>Room Type:</label>
+                        <select name="room_type" value={formData.room_type} onChange={handleChange} required>
+                            <option value="">Select</option>
+                            {getRoomTypeOptions()}
+                        </select>
 
-                    {/* Room Type */}
-                    <label>Room Type:</label>
-                    <select name="room_type" value={formData.room_type} onChange={handleChange} required>
-                        <option value="">Select</option>
-                        {getRoomTypeOptions()}
-                    </select>
+                        {/* Superhost */}
+                        <label>Host is Superhost:</label>
+                        <select name="host_is_superhost" value={formData.host_is_superhost} onChange={handleChange} required>
+                            <option value="">Select</option>
+                            <option value="1">TRUE</option>
+                            <option value="0">FALSE</option>
+                        </select>
 
-                    {/* Superhost */}
-                    <label>Host is Superhost:</label>
-                    <select name="host_is_superhost" value={formData.host_is_superhost} onChange={handleChange} required>
-                        <option value="">Select</option>
-                        <option value="1">TRUE</option>
-                        <option value="0">FALSE</option>
-                    </select>
+                        {/* ZIP Code */}
+                        <label>ZIP Code:</label>
+                        <input type="text" name="zip" value={formData.zip} onChange={handleChange} required />
 
-                    {/* ZIP Code */}
-                    <label>ZIP Code:</label>
-                    <input type="text" name="zip" value={formData.zip} onChange={handleChange} required />
+                        {/* Season */}
+                        <label>Season:</label>
+                        <select name="season" value={formData.season} onChange={handleChange} required>
+                            <option value="">Select</option>
+                            <option value="Spring">Spring</option>
+                            <option value="Summer">Summer</option>
+                            <option value="Fall">Fall</option>
+                            <option value="Winter">Winter</option>
+                        </select>
 
-                    {/* Season */}
-                    <label>Season:</label>
-                    <select name="season" value={formData.season} onChange={handleChange} required>
-                        <option value="">Select</option>
-                        <option value="Spring">Spring</option>
-                        <option value="Summer">Summer</option>
-                        <option value="Fall">Fall</option>
-                        <option value="Winter">Winter</option>
-                    </select>
+                        {/* BUTTON ROW */}
+                        <div className="nav-buttons">
+                            <button type="submit" >Predict Price</button>
+                            <button type="button" onClick={handleReset}>Reset Form</button>
+                        </div>
+                    </form>
 
-                    {/* BUTTON ROW */}
-                    <div className="form-button-row">
-                        <button type="submit" className="submit-btn">Predict Price</button>
-                        <button type="button" className="reset-btn" onClick={handleReset}>Reset Form</button>
-                    </div>
-                </form>
+                    {/* ⭐ Prediction Output */}
+                    {prediction !== null && (
+                        <div className="prediction-box" ref={predictionRef}>
+                            <h3 className="prediction-title">Predicted Price</h3>
+                            <p className="prediction-value">${Number(prediction).toFixed(2)}</p>
+                            <p className="prediction-note">(Estimated nightly price based on LSRT model)</p>
+                        </div>
+                    )}
 
-                {/* ⭐ Prediction Output */}
-                {prediction !== null && (
-                    <div className="prediction-box" ref={predictionRef}>
-                        <h3 className="prediction-title">Predicted Price</h3>
-                        <p className="prediction-value">${Number(prediction).toFixed(2)}</p>
-                        <p className="prediction-note">(Estimated nightly price based on LSRT model)</p>
-                    </div>
-                )}
+                </div>
 
             </div>
-
             <footer className="footer">
                 <p>© 2025 Team 10 — STA160 | UC Davis</p>
             </footer>

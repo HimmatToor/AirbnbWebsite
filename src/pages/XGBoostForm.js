@@ -120,7 +120,7 @@ function XGBoostForm() {
         }
 
         try {
-            const response = await fetch("http://127.0.0.1:5000/predict_XGB", {
+            const response = await fetch("https://deploybackend-964220208800.us-west2.run.app/predict_XGB", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),
@@ -138,99 +138,103 @@ function XGBoostForm() {
     };
 
     return (
-        <div className="input-form-container">
+        <div>
+            <div className="input-form-container">
 
-            {/* 🔙 Back Button */}
-            <div className="ny-topbar">
-                <button className="back-button" onClick={() => navigate("/inputForm")}>
-                    ← Back
-                </button>
-            </div>
+                {/* 🔙 Back Button */}
+                <div className="ny-topbar">
+                    <button className="back-button" onClick={() => navigate("/inputForm")}>
+                        ← Back
+                    </button>
+                </div>
 
-            <h2>XGBoost Price Prediction</h2>
+                <h2>XGBoost Price Prediction</h2>
 
-            {/* Navigation Bar */}
-            <div className="nav-buttons">
-                <button onClick={() => navigate("/")}>Home</button>
-                <button onClick={() => navigate("/projectReport")}>Project Report</button>
-                <button onClick={() => navigate('/cities')}>Explore Cities</button>
-                <button onClick={() => navigate("/contributions")}>Contributions</button>
-            </div>
+                {/* Navigation Bar */}
+                <div className="nav-buttons">
+                    <button onClick={() => navigate("/")}>Home</button>
+                    <button onClick={() => navigate("/projectReport")}>Project Report</button>
+                    <button onClick={() => navigate('/cities')}>Explore Cities</button>
+                    <button onClick={() => navigate("/contributions")}>Contributions</button>
+                </div>
 
-            <div className="form-card">
+                <div className="form-card">
 
-                {error && (
-                    <p style={{ color: "red", fontWeight: 600 }}>{error}</p>
-                )}
+                    {error && (
+                        <p style={{ color: "red", fontWeight: 600 }}>{error}</p>
+                    )}
 
-                <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit}>
 
-                    <label>City:</label>
-                    <select name="city" value={formData.city} onChange={handleChange} required>
-                        <option value="">Select</option>
-                        <option value="CHI">Chicago</option>
-                        <option value="DAL">Dallas</option>
-                        <option value="DEN">Denver</option>
-                        <option value="LA">Los Angeles</option>
-                        <option value="NY">New York</option>
-                    </select>
+                        <label>City:</label>
+                        <select name="city" value={formData.city} onChange={handleChange} required>
+                            <option value="">Select</option>
+                            <option value="CHI">Chicago</option>
+                            <option value="DAL">Dallas</option>
+                            <option value="DEN">Denver</option>
+                            <option value="LA">Los Angeles</option>
+                            <option value="NY">New York</option>
+                        </select>
 
-                    <label>Accommodates:</label>
-                    <input type="number" min="1" name="accommodates" value={formData.accommodates} onChange={handleChange} required />
+                        <label>Accommodates:</label>
+                        <input type="number" min="1" name="accommodates" value={formData.accommodates} onChange={handleChange} required />
 
-                    <label>Bedrooms:</label>
-                    <input type="number" min="1" name="bedrooms" value={formData.bedrooms} onChange={handleChange} required />
+                        <label>Bedrooms:</label>
+                        <input type="number" min="1" name="bedrooms" value={formData.bedrooms} onChange={handleChange} required />
 
-                    <label>Beds:</label>
-                    <input type="number" min="1" name="beds" value={formData.beds} onChange={handleChange} required />
+                        <label>Beds:</label>
+                        <input type="number" min="1" name="beds" value={formData.beds} onChange={handleChange} required />
 
-                    <label>Room Type:</label>
-                    <select name="room_type" value={formData.room_type} onChange={handleChange} required>
-                        <option value="">Select</option>
-                        {getRoomTypeOptions()}
-                    </select>
+                        <label>Room Type:</label>
+                        <select name="room_type" value={formData.room_type} onChange={handleChange} required>
+                            <option value="">Select</option>
+                            {getRoomTypeOptions()}
+                        </select>
 
-                    <label>Host is Superhost:</label>
-                    <select name="host_is_superhost" value={formData.host_is_superhost} onChange={handleChange} required>
-                        <option value="">Select</option>
-                        <option value="TRUE">TRUE</option>
-                        <option value="FALSE">FALSE</option>
-                    </select>
+                        <label>Host is Superhost:</label>
+                        <select name="host_is_superhost" value={formData.host_is_superhost} onChange={handleChange} required>
+                            <option value="">Select</option>
+                            <option value="TRUE">TRUE</option>
+                            <option value="FALSE">FALSE</option>
+                        </select>
 
-                    <label>Minimum Nights:</label>
-                    <input type="number" min="1" name="minimum_nights" value={formData.minimum_nights} onChange={handleChange} required />
+                        <label>Minimum Nights:</label>
+                        <input type="number" min="1" name="minimum_nights" value={formData.minimum_nights} onChange={handleChange} required />
 
-                    <label>Availability (365):</label>
-                    <input type="number" min="1" max="365" name="availability_365" value={formData.availability_365} onChange={handleChange} required />
+                        <label>Availability (365):</label>
+                        <input type="number" min="1" max="365" name="availability_365" value={formData.availability_365} onChange={handleChange} required />
 
-                    <label>Number of Reviews:</label>
-                    <input type="number" min="1" name="number_of_reviews" value={formData.number_of_reviews} onChange={handleChange} required />
+                        <label>Number of Reviews:</label>
+                        <input type="number" min="1" name="number_of_reviews" value={formData.number_of_reviews} onChange={handleChange} required />
 
-                    <label>Review Score: Rating (1–5)</label>
-                    <input type="number" min="1" max="5" step="0.01" name="review_scores_rating" value={formData.review_scores_rating} onChange={handleChange} />
+                        <label>Review Score: Rating (1–5)</label>
+                        <input type="number" min="1" max="5" step="0.01" name="review_scores_rating" value={formData.review_scores_rating} onChange={handleChange} />
 
-                    <label>Review Score: Check-in (1–5)</label>
-                    <input type="number" min="1" max="5" step="0.01" name="review_scores_checkin" value={formData.review_scores_checkin} onChange={handleChange} />
+                        <label>Review Score: Check-in (1–5)</label>
+                        <input type="number" min="1" max="5" step="0.01" name="review_scores_checkin" value={formData.review_scores_checkin} onChange={handleChange} />
 
-                    <label>Review Score: Accuracy (1–5)</label>
-                    <input type="number" min="1" max="5" step="0.01" name="review_scores_accuracy" value={formData.review_scores_accuracy} onChange={handleChange} />
+                        <label>Review Score: Accuracy (1–5)</label>
+                        <input type="number" min="1" max="5" step="0.01" name="review_scores_accuracy" value={formData.review_scores_accuracy} onChange={handleChange} />
 
-                    {/* Buttons Row */}
-                    <div className="form-button-row">
-                        <button type="submit" className="submit-btn">Predict Price</button>
-                        <button type="button" className="reset-btn" onClick={handleReset}>Reset Form</button>
-                    </div>
-                </form>
+                        {/* Buttons Row */}
+                        <div className="nav-buttons">
+                            <button type="submit" >Predict Price</button>
+                            <button type="button" onClick={handleReset}>Reset Form</button>
+                        </div>
+                    </form>
 
-                {/* ⭐ Prediction Box (Auto-scroll target) */}
-                {prediction !== null && (
-                    <div className="prediction-box" ref={predictionRef}>
-                        <h3 className="prediction-title">Predicted Price</h3>
-                        <p className="prediction-value">${Number(prediction).toFixed(2)}</p>
-                        <p className="prediction-note">(Estimated nightly price based on XGBoost model)</p>
-                    </div>
-                )}
+                    {/* ⭐ Prediction Box (Auto-scroll target) */}
+                    {prediction !== null && (
+                        <div className="prediction-box" ref={predictionRef}>
+                            <h3 className="prediction-title">Predicted Price</h3>
+                            <p className="prediction-value">${Number(prediction).toFixed(2)}</p>
+                            <p className="prediction-note">(Estimated nightly price based on XGBoost model)</p>
+                        </div>
+                    )}
 
+                </div>
+
+                
             </div>
 
             <footer className="footer">
