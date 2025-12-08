@@ -12,6 +12,7 @@ import CHI from "./pages/cities/CHI"
 import LA from "./pages/cities/LA"
 import XGBoostForm from "./pages/XGBoostForm"
 import LSRTForm from "./pages/LSRTForm"
+import FinalPresentation from './pages/FinalPresentation'
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Routes>
           <Route path = "/" element = {<Home />} />
           <Route path = "/projectReport" element = {<ProjectReport />} />
+          <Route path = "/finalPresentation" element = {<FinalPresentation />} />
           <Route path="/cities" element={<Cities />} />
           <Route path = "/inputForm" element = {<InputForm />} />
           <Route path ="/xgboostForm" element={<XGBoostForm />} />

@@ -44,6 +44,7 @@ function Home() {
 
         <div className="home-buttons">
           <button onClick={() => {navigate("/projectReport")}} className="home-btn">View Project</button>
+          <button onClick={() => {navigate("/finalPresentation")}} className="home-btn">Final Presentation</button>
           <button onClick={() => {navigate("/cities")}} className="home-btn">Explore Cities</button>
           <button onClick={() => {navigate("/inputForm")}} className="home-btn">Try Explorer</button>
           <button onClick={() => {navigate("/contributions")}} className="home-btn">Meet the Team</button>
