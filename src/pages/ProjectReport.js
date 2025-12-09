@@ -12,6 +12,7 @@ function ProjectReport() {
                 {/* NAVIGATION */}
                 <div className="top-nav">
                     <button className="nav-btn" onClick={() => navigate("/")}>Home</button>
+                    <button className="nav-btn" onClick={() => {navigate("/finalPresentation")}}>Final Presentation</button>
                     <button className="nav-btn" onClick={() => navigate("/cities")}>Explore Cities</button>
                     <button className="nav-btn" onClick={() => navigate("/inputForm")}>Input Form</button>
                     <button className="nav-btn" onClick={() => navigate("/contributions")}>Contributions</button>
@@ -35,17 +36,6 @@ function ProjectReport() {
                         models power our interactive web tool that predicts Airbnb prices based on user inputs.
                     </p>
 
-                    <div className="figure-row">
-                        <div className="overview-figure figure-small">
-                            <img src={`${process.env.PUBLIC_URL}/assets/dallas_hist.png`} alt="Dallas Price Distribution" />
-                            <p className="figure-caption">Figure 1. Histogram of Dallas price distribution.</p>
-                        </div>
-
-                        <div className="overview-figure figure-small">
-                            <img src={`${process.env.PUBLIC_URL}/assets/la_hist.png`} alt="LA Histogram" />
-                            <p className="figure-caption">Figure 2. Histogram of Los Angeles price distribution.</p>
-                        </div>
-                    </div>
                 </section>
 
                 {/* ===== ABSTRACT ===== */}
@@ -74,18 +64,6 @@ function ProjectReport() {
                         <li>How much variation is due to neighborhood differences?</li>
                         <li>Do nonlinear or sequential models outperform linear baselines?</li>
                     </ul>
-
-                    <div className="figure-row">
-                        <div className="overview-figure figure-small">
-                            <img src={`${process.env.PUBLIC_URL}/assets/ny_roomtype_boxplot.png`} alt="NY Room Type Boxplot" />
-                            <p className="figure-caption">Figure 3. Boxplot of New York prices by room type.</p>
-                        </div>
-
-                        <div className="overview-figure figure-small">
-                            <img src={`${process.env.PUBLIC_URL}/assets/ny_roomtype_violin.png`} alt="NY Room Type Violin Plot" />
-                            <p className="figure-caption">Figure 4. Violin–boxplot of New York prices by room type.</p>
-                        </div>
-                    </div>
                 </section>
 
                 {/* ===== DATA & METHODS ===== */}
@@ -98,13 +76,34 @@ function ProjectReport() {
                         price, room type, accommodates, beds, bedrooms, bathrooms, host superhost status,
                         amenities, latitude/longitude, and zip code.
                     </p>
+                    <div className="figure-row">
+                        <div className="overview-figure figure-small">
+                            <img src={`${process.env.PUBLIC_URL}/assets/dallas_hist.png`} alt="Dallas Price Distribution" />
+                            <p className="figure-caption">Figure 1. Histogram of Dallas price distribution.</p>
+                        </div>
 
+                        <div className="overview-figure figure-small">
+                            <img src={`${process.env.PUBLIC_URL}/assets/la_hist.png`} alt="LA Histogram" />
+                            <p className="figure-caption">Figure 2. Histogram of Los Angeles price distribution.</p>
+                        </div>
+                    </div>
+                    
                     <h4>Data Cleaning</h4>
                     <p>
                         We removed invalid prices, standardized bathroom counts, applied log(price) transformation,
                         and excluded features with excessive missing values. Outliers above $1000 were removed.
                     </p>
+                    <div className="figure-row">
+                        <div className="overview-figure figure-small">
+                            <img src={`${process.env.PUBLIC_URL}/assets/ny_roomtype_boxplot.png`} alt="NY Room Type Boxplot" />
+                            <p className="figure-caption">Figure 3. Boxplot of New York prices by room type.</p>
+                        </div>
 
+                        <div className="overview-figure figure-small">
+                            <img src={`${process.env.PUBLIC_URL}/assets/ny_roomtype_violin.png`} alt="NY Room Type Violin Plot" />
+                            <p className="figure-caption">Figure 4. Violin–boxplot of New York prices by room type.</p>
+                        </div>
+                    </div>
 
                     <div className="overview-figure figure-small">
                         <img src={`${process.env.PUBLIC_URL}/assets/chicago_corr_heatmap.png`} alt="Chicago Correlation Heatmap" />

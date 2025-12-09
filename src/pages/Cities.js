@@ -14,6 +14,7 @@ function Cities() {
             <div className="navbar">
                 <button onClick={() => navigate("/")}>Home</button>
                 <button onClick={() => navigate("/projectReport")}>Project Report</button>
+                <button onClick={() => navigate("/finalPresentation")}>Final Presentation</button>
                 <button onClick={() => navigate("/inputForm")}>Input Form</button>
                 <button onClick={() => navigate("/contributions")}>Contributions</button>
             </div>

@@ -314,10 +314,6 @@ function LSRTForm() {
                             <option value="0">FALSE</option>
                         </select>
 
-                        {/* ZIP Code */}
-                        <label>ZIP Code:</label>
-                        <input type="text" name="zip" value={formData.zip} onChange={handleChange} required />
-
                         {/* Season */}
                         <label>Season:</label>
                         <select name="season" value={formData.season} onChange={handleChange} required>

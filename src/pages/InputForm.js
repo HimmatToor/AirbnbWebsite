@@ -19,6 +19,7 @@ function InputForm() {
                 <div className="nav-buttons">
                     <button onClick={() => navigate("/")}>Home</button>
                     <button onClick={() => navigate("/projectReport")}>Project Report</button>
+                    <button onClick={() => navigate("/finalPresentation")}>Final Presentation</button>
                     <button onClick={() => navigate('/cities')}>Explore Cities</button>
                     <button onClick={() => navigate("/contributions")}>Contributions</button>
                 </div>
@@ -38,7 +39,7 @@ function InputForm() {
 
                     {/* LSRT Card */}
                     <div className="model-card">
-                        <h3>LSTM Recurrent Neural Network Model</h3>
+                        <h3>LSTM Recurrent Neural Network Model (LSRT)</h3>
                         <p>
                             Uses the <b>amenities you select, seasonal patterns, and listing details</b> to predict price while also capturing how Airbnb prices change across different times of the year.
                         </p>

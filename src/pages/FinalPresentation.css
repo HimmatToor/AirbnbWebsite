@@ -13,6 +13,14 @@
   color: #ff6b6b;
 }
 
+.presentation-subtitle {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 30px;
+  color: #444;
+}
+
 .presentation-video {
   width: 80%;
   max-width: 900px;

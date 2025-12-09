@@ -63,6 +63,7 @@ function Contributions() {
       <div className="nav-buttons">
         <button onClick={() => navigate('/')}>Home</button>
         <button onClick={() => navigate('/projectReport')}>Project Report</button>
+        <button onClick={() => navigate('/finalPresentation')}>Final Presentation</button>
         <button onClick={() => navigate('/cities')}>Explore Cities</button>
         <button onClick={() => navigate('/inputForm')}>Input Form</button>
       </div>
